@@ -17,7 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Naresh Lokhande - Portfolio',
-  description: 'Full Stack Developer building modern web applications',
+  description:
+    'Full Stack Engineer | Production-Scale Web & Cloud Platforms | Next.js & Spring Boot',
 };
 
 export default function RootLayout({

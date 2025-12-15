@@ -1,34 +1,81 @@
 'use client';
 
-import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Cloud, Database, Lock, Server, Sparkles, Wrench } from 'lucide-react';
 
 const skillCategories = [
   {
-    category: 'Frontend',
+    icon: Sparkles,
+    title: 'Frontend',
+    color: 'text-purple-600 dark:text-purple-400',
     skills: [
-      'React',
-      'Next.js',
-      'TypeScript',
+      'Next.js (App Router, SSR, routing, data fetching)',
+      'React, TypeScript',
+      'Context-based state management',
       'Tailwind CSS',
-      'JavaScript',
-      'HTML/CSS',
+      'Client–server rendering strategies',
     ],
   },
   {
-    category: 'Backend',
+    icon: Server,
+    title: 'Backend',
+    color: 'text-green-600 dark:text-green-400',
     skills: [
-      'Node.js',
-      'Java',
-      'Express',
-      'REST APIs',
-      'MSSQL',
-      'PostgreSQL',
+      'Java, Spring Boot',
+      'REST API design',
+      'Modular architecture with microservices readiness',
+      'Spring Security (JWT, role-based access)',
+      'Event-driven concepts (RabbitMQ – basic usage)',
     ],
   },
   {
-    category: 'Tools',
-    skills: ['Git', 'Docker', 'CI/CD', 'Azure', 'Linux'],
+    icon: Database,
+    title: 'Database & Data',
+    color: 'text-orange-600 dark:text-orange-400',
+    skills: [
+      'SQL Server',
+      'Relational data modeling',
+      'Liquibase (schema migrations & versioning)',
+      'Environment-safe database changes',
+      'Query optimization & integrity constraints',
+    ],
+  },
+  {
+    icon: Cloud,
+    title: 'Cloud & Deployment',
+    color: 'text-blue-600 dark:text-blue-400',
+    skills: [
+      'Azure App Service',
+      'Azure Blob Storage',
+      'Environment-based configuration',
+      'CI/CD basics (GitHub Actions)',
+      'Production debugging & logs',
+      'Application configuration & secrets management',
+    ],
+  },
+  {
+    icon: Lock,
+    title: 'Security & Authentication',
+    color: 'text-red-600 dark:text-red-400',
+    skills: [
+      'JWT-based authentication',
+      'OTP verification flows (email)',
+      'Session expiry & token refresh strategies',
+      'Role-based access control (RBAC)',
+      'Secure API boundary design',
+    ],
+  },
+  {
+    icon: Wrench,
+    title: 'Tools & Engineering Practices',
+    color: 'text-indigo-600 dark:text-indigo-400',
+    skills: [
+      'Clean API contracts',
+      'Audit logging & soft deletes',
+      'Debugging production issues',
+      'Writing maintainable, extensible code',
+      'Git & GitHub',
+    ],
   },
 ];
 
@@ -41,27 +88,43 @@ export function Skills() {
             Skills & Technologies
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            Technologies and tools I work with to build amazing applications.
+            These are the tools I&apos;ve used extensively in production
+            systems.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {skillCategories.map((category) => (
-            <Card key={category.category} className="border-border/50">
-              <CardHeader>
-                <CardTitle>{category.category}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill) => (
-                    <Badge key={skill} variant="outline">
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {skillCategories.map((category) => {
+            const Icon = category.icon;
+            return (
+              <Card
+                key={category.title}
+                className="group border-border/50 transition-all hover:shadow-lg hover:shadow-primary/5"
+              >
+                <CardHeader>
+                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary/20">
+                    <Icon
+                      className={`h-6 w-6 ${category.color} transition-transform group-hover:scale-110`}
+                    />
+                  </div>
+                  <CardTitle className="text-xl">{category.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {category.skills.map((skill, index) => (
+                      <li
+                        key={index}
+                        className="flex items-start gap-2 text-sm text-muted-foreground"
+                      >
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"></span>
+                        <span className="leading-relaxed">{skill}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>
