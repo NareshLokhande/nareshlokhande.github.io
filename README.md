@@ -1,70 +1,195 @@
-# Getting Started with Create React App
+# Naresh Lokhande - Portfolio Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive portfolio website showcasing my work as a Full Stack Developer. Built with React and deployed on GitHub Pages.
 
-## Available Scripts
+> **Note**: This repository contains both React (CRA) and Next.js versions:
+>
+> - **Main branch**: React version (current)
+> - **nextjs-version branch**: Next.js version (see [NEXTJS_SETUP.md](./NEXTJS_SETUP.md) for details)
 
-In the project directory, you can run:
+## 🌟 Features
+
+- **Responsive Design**: Fully responsive layout that works seamlessly on desktop, tablet, and mobile devices
+- **Dark/Light Theme**: Toggle between dark and light modes with theme persistence
+- **Modern UI**: Built with Tailwind CSS and shadcn/ui components for a clean, professional look
+- **Project Showcase**: Display your projects with images, descriptions, and technology tags
+- **Tech Stack Section**: Highlight your skills across Frontend, Backend, DevOps, and Tools
+- **Contact Form**: Integrated contact form for easy communication
+- **Smooth Navigation**: React Router for seamless page navigation
+- **Social Links**: Quick access to GitHub, LinkedIn, Twitter, and email
+
+## 🚀 Tech Stack
+
+### Frontend
+
+- **React 19** - Modern React with latest features
+- **React Router DOM** - Client-side routing
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Beautiful, accessible component library
+- **Framer Motion** - Animation library for smooth transitions
+- **Lucide React** - Icon library
+- **next-themes** - Theme management
+
+### Development Tools
+
+- **Create React App** - Project scaffolding and build tools
+- **gh-pages** - GitHub Pages deployment
+
+## 📁 Project Structure
+
+```
+nareshlokhande.github.io/
+├── public/                 # Static assets
+│   ├── index.html
+│   └── ...
+├── src/
+│   ├── components/        # Reusable components
+│   │   ├── ui/            # UI components (Button, Card, Input, etc.)
+│   │   ├── Navbar.js      # Navigation bar
+│   │   ├── Footer.js      # Footer component
+│   │   ├── ContactForm.js # Contact form
+│   │   ├── ProjectCard.js # Project display card
+│   │   └── TechStack.js   # Technology stack display
+│   ├── pages/             # Page components
+│   │   ├── Home.js        # Home page
+│   │   └── Contact.js     # Contact page
+│   ├── context/           # React context
+│   │   └── ThemeContext.js # Theme management
+│   ├── lib/               # Utility functions
+│   ├── actions.js         # API actions
+│   ├── App.js             # Main app component
+│   └── index.js           # Entry point
+├── package.json
+└── README.md
+```
+
+## 🛠️ Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/NareshLokhande/nareshlokhande.github.io.git
+   cd nareshlokhande.github.io
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+   ```bash
+   npm start
+   ```
+   The app will open at [http://localhost:3000](http://localhost:3000)
+
+## 📜 Available Scripts
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Runs the app in development mode at [http://localhost:3000](http://localhost:3000). The page will reload when you make changes.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in interactive watch mode.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production to the `build` folder. The build is optimized and ready for deployment.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm run deploy`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Deploys the built app to GitHub Pages. This command:
 
-### `npm run eject`
+1. Runs `npm run build` to create a production build
+2. Deploys the `build` folder to the `gh-pages` branch
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🎨 Customization
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Update Personal Information
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Edit `src/pages/Home.js` to update the hero section and social links
+- Modify `src/components/Navbar.js` to change navigation items
+- Update `src/components/Footer.js` for footer information
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Add Projects
 
-## Learn More
+Edit the projects array in `src/pages/Home.js`:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```javascript
+<ProjectCard
+  title="Your Project Title"
+  description="Project description"
+  image={YourImage}
+  link="https://github.com/your-repo"
+  tags={['React', 'Node.js', 'MongoDB']}
+/>
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Update Tech Stack
 
-### Code Splitting
+Modify the `technologies` array in `src/components/TechStack.js`:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```javascript
+const technologies = [
+  {
+    category: 'Frontend',
+    skills: ['React', 'Vue', 'Angular'],
+  },
+  // Add more categories...
+];
+```
 
-### Analyzing the Bundle Size
+### Configure Contact Form
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Update the API endpoint in `src/actions.js`:
 
-### Making a Progressive Web App
+```javascript
+const response = await fetch('https://your-backend-api.com/contact', {
+  // ... your configuration
+});
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🌐 Deployment
 
-### Advanced Configuration
+This project is configured for GitHub Pages deployment. The `homepage` field in `package.json` is set to your GitHub Pages URL.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Deploy to GitHub Pages
 
-### Deployment
+1. **Build the project**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+   ```bash
+   npm run build
+   ```
 
-### `npm run build` fails to minify
+2. **Deploy**
+   ```bash
+   npm run deploy
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The site will be available at `https://nareshlokhande.github.io`
+
+## 🔒 Security
+
+All security vulnerabilities have been addressed using npm overrides in `package.json`:
+
+- `nth-check >=2.0.1`
+- `postcss >=8.4.31`
+- `webpack-dev-server >=5.2.1`
+
+Run `npm audit` to verify no vulnerabilities exist.
+
+## 📝 License
+
+This project is private and all rights are reserved.
+
+## 📧 Contact
+
+- **Email**: nareshlokhande.dev@gmail.com
+- **GitHub**: [@NareshLokhande](https://github.com/NareshLokhande)
+- **Website**: [https://nareshlokhande.github.io](https://nareshlokhande.github.io)
+
+---
+
+Built with ❤️ using React and Tailwind CSS
