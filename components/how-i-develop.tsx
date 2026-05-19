@@ -9,8 +9,23 @@ import {
   Server,
   Sparkles,
 } from 'lucide-react';
+import Link from 'next/link';
 
-const developmentPrinciples = [
+interface Evidence {
+  slug: string;
+  label: string;
+}
+
+interface Principle {
+  icon: typeof Brain;
+  title: string;
+  description: string;
+  color: string;
+  bgColor: string;
+  evidence: Evidence[];
+}
+
+const developmentPrinciples: Principle[] = [
   {
     icon: Brain,
     title: 'Understanding the problem first',
@@ -18,6 +33,10 @@ const developmentPrinciples = [
       'I start by understanding the actual business workflow, not just the screens or APIs. Before writing code, I identify core entities, user roles, edge cases, and failure paths so the solution matches real usage instead of assumptions.',
     color: 'text-blue-600 dark:text-blue-400',
     bgColor: 'bg-blue-50 dark:bg-blue-950/30',
+    evidence: [
+      { slug: 'edukacy', label: 'Edukacy multi-role signup' },
+      { slug: '24tutors', label: '24Tutors scheduling flows' },
+    ],
   },
   {
     icon: Sparkles,
@@ -26,6 +45,10 @@ const developmentPrinciples = [
       'I use Next.js with SSR where initial load, SEO, or authenticated data matters. I focus on predictable state, clean separation between UI and data-fetching, and avoiding common SSR pitfalls like hydration mismatches and navigation data loss.',
     color: 'text-purple-600 dark:text-purple-400',
     bgColor: 'bg-purple-50 dark:bg-purple-950/30',
+    evidence: [
+      { slug: '24tutors', label: '24Tutors SSR dashboards' },
+      { slug: 'shivani-batra-clinic', label: 'Shivani Batra Clinic' },
+    ],
   },
   {
     icon: Server,
@@ -34,6 +57,10 @@ const developmentPrinciples = [
       'I design backend services around clear responsibilities and stable contracts. APIs are validated at boundaries, errors are consistent, and logic is kept modular so features can evolve without tightly coupling frontend and backend changes.',
     color: 'text-green-600 dark:text-green-400',
     bgColor: 'bg-green-50 dark:bg-green-950/30',
+    evidence: [
+      { slug: '24tutors', label: '24Tutors microservices' },
+      { slug: 'edukacy', label: 'Edukacy assessment APIs' },
+    ],
   },
   {
     icon: Database,
@@ -42,6 +69,10 @@ const developmentPrinciples = [
       'I treat database schema as versioned code, not a one-time setup. I use Liquibase to manage migrations across environments, prevent schema drift, and ensure database changes are traceable, repeatable, and safe to deploy.',
     color: 'text-orange-600 dark:text-orange-400',
     bgColor: 'bg-orange-50 dark:bg-orange-950/30',
+    evidence: [
+      { slug: '24tutors', label: 'Liquibase on 24Tutors' },
+      { slug: 'edukacy', label: 'Schema evolution on Edukacy' },
+    ],
   },
   {
     icon: Lock,
@@ -50,6 +81,10 @@ const developmentPrinciples = [
       'I design authentication and authorization early, especially for role-based systems. I pay close attention to session expiry, token handling, and access control to avoid security gaps that usually surface late in production.',
     color: 'text-red-600 dark:text-red-400',
     bgColor: 'bg-red-50 dark:bg-red-950/30',
+    evidence: [
+      { slug: '24tutors', label: 'JWT + OTP on 24Tutors' },
+      { slug: 'edukacy', label: 'RBAC on Edukacy' },
+    ],
   },
   {
     icon: GitBranch,
@@ -58,6 +93,9 @@ const developmentPrinciples = [
       'I assume requirements will change. I try to build systems where new roles, workflows, or integrations can be added with minimal refactoring by keeping logic extensible and avoiding hard-coded assumptions.',
     color: 'text-indigo-600 dark:text-indigo-400',
     bgColor: 'bg-indigo-50 dark:bg-indigo-950/30',
+    evidence: [
+      { slug: 'edukacy', label: 'AI-ready hooks in Edukacy' },
+    ],
   },
 ];
 
@@ -87,7 +125,7 @@ export function HowIDevelop() {
           {/* Connecting Flow Lines - Desktop */}
           <div className="absolute inset-0 hidden lg:block">
             {/* Horizontal line from card 1 to 2 */}
-            <div className="absolute left-[33.33%] top-1/2 h-0.5 w-[16.66%] -translate-y-1/2 bg-grliadient-to-r from-blue-500/30 via-purple-500/30 to-transparent" />
+            <div className="absolute left-[33.33%] top-1/2 h-0.5 w-[16.66%] -translate-y-1/2 bg-linear-to-r from-blue-500/30 via-purple-500/30 to-transparent" />
             {/* Horizontal line from card 2 to 3 */}
             <div className="absolute left-[50%] top-1/2 h-0.5 w-[16.66%] -translate-y-1/2 bg-linear-to-r from-purple-500/30 via-green-500/30 to-transparent" />
             {/* Vertical line from card 3 to 4 */}
@@ -133,9 +171,25 @@ export function HowIDevelop() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground leading-relaxed">
+                    <p className="mb-4 text-muted-foreground leading-relaxed">
                       {principle.description}
                     </p>
+                    {principle.evidence.length > 0 && (
+                      <div className="flex flex-wrap gap-2 pt-2 border-t border-border/40">
+                        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground/70">
+                          Seen in:
+                        </span>
+                        {principle.evidence.map((item) => (
+                          <Link
+                            key={item.slug}
+                            href={`/projects/${item.slug}`}
+                            className="text-xs text-primary transition-colors hover:text-primary/80 hover:underline"
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               );

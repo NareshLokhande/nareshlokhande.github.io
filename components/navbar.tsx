@@ -7,7 +7,8 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from '@/components/ui/navigation-menu';
-import { Menu, Moon, Sun, X } from 'lucide-react';
+import { RESUME_URL } from '@/lib/constants';
+import { Download, Menu, Moon, Sun, X } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import * as React from 'react';
@@ -62,6 +63,17 @@ export function Navbar() {
               ))}
             </NavigationMenuList>
           </NavigationMenu>
+          <Button asChild size="sm" variant="outline" className="ml-1">
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+            >
+              <Download className="mr-2 h-4 w-4" />
+              Resume
+            </a>
+          </Button>
           {mounted && (
             <Button
               variant="ghost"
@@ -130,6 +142,21 @@ export function Navbar() {
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               ))}
+              <NavigationMenuItem className="w-full">
+                <NavigationMenuLink asChild>
+                  <a
+                    href={RESUME_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                  >
+                    <Download className="h-4 w-4" />
+                    Resume
+                  </a>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
         </div>

@@ -1,9 +1,10 @@
 import { About } from '@/components/about';
 import { Contact } from '@/components/contact';
 import { Hero } from '@/components/hero';
+import { HowIDevelop } from '@/components/how-i-develop';
 import { Projects } from '@/components/projects';
 import { Skills } from '@/components/skills';
-import { HowIDevelop } from '@/components/how-i-develop';
+import { Testimonials } from '@/components/testimonials';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Hero />
       <About />
       <Projects />
+      <Testimonials />
       <HowIDevelop />
       <Skills />
       <Contact />

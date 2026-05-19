@@ -25,6 +25,10 @@ jobs:
         run: npm ci
 
       - name: Build
+        env:
+          # Set this secret in GitHub repo: Settings → Secrets and variables → Actions
+          # Get a free key at https://web3forms.com
+          NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY: ${{ secrets.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY }}
         run: npm run build
 
       - name: Deploy to gh-pages

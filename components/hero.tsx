@@ -1,9 +1,14 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowDown, Download, Github, Linkedin, Mail } from 'lucide-react';
 import Link from 'next/link';
-import { EMAIL_URL, GITHUB_URL, LINKEDIN_URL } from '@/lib/constants';
+import {
+  EMAIL_URL,
+  GITHUB_URL,
+  LINKEDIN_URL,
+  RESUME_URL,
+} from '@/lib/constants';
 
 export function Hero() {
   return (
@@ -25,18 +30,35 @@ export function Hero() {
         </h1>
 
         <p className="mb-8 text-xl text-muted-foreground sm:text-2xl">
-          Full Stack Developer building modern web applications
+          Full Stack Developer — production Next.js & Spring Boot platforms on
+          Azure
         </p>
 
         <p className="mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-          I create beautiful, functional, and user-centered digital experiences.
-          Passionate about clean code, modern technologies, and turning ideas
-          into reality.
+          Currently building education and tutoring platforms at BITCOLLAGE. I
+          focus on microservices, clean API contracts, and shipping reliable
+          software end-to-end.
         </p>
 
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button asChild size="lg" className="w-full sm:w-auto">
             <Link href="#projects">View My Work</Link>
+          </Button>
+          <Button
+            asChild
+            variant="secondary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+            >
+              <Download className="mr-2 h-4 w-4" />
+              Download Resume
+            </a>
           </Button>
           <Button
             asChild

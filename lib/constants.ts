@@ -1,7 +1,15 @@
+export const SITE_URL = 'https://nareshlokhande.github.io';
+export const SITE_NAME = 'Naresh Lokhande';
+export const SITE_TITLE = 'Naresh Lokhande — Full Stack Developer';
+export const SITE_DESCRIPTION =
+  'Full Stack Developer building production Next.js & Spring Boot platforms on Azure. Currently shipping education and tutoring platforms at BITCOLLAGE.';
+export const TWITTER_HANDLE = '@nareshlokhande_';
+
 export const GITHUB_URL = 'https://github.com/nareshlokhande';
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/nareshlokhande/';
 export const TWITTER_URL = 'https://x.com/nareshlokhande_';
 export const EMAIL_URL = 'nareshlokhande.dev@gmail.com';
+export const RESUME_URL = '/resume.pdf';
 
 // Organization configurations
 export interface Organization {

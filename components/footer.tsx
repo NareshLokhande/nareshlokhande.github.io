@@ -1,8 +1,14 @@
 'use client';
 
-import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import { Download, Github, Linkedin, Mail, Twitter } from 'lucide-react';
 import Link from 'next/link';
-import { EMAIL_URL, GITHUB_URL, LINKEDIN_URL, TWITTER_URL } from '@/lib/constants';
+import {
+  EMAIL_URL,
+  GITHUB_URL,
+  LINKEDIN_URL,
+  RESUME_URL,
+  TWITTER_URL,
+} from '@/lib/constants';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -12,11 +18,21 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 md:grid-cols-3">
           <div>
-            <h3 className="mb-4 text-lg font-semibold">Portfolio</h3>
+            <h3 className="mb-4 text-lg font-semibold">Naresh Lokhande</h3>
             <p className="text-sm text-muted-foreground">
-              Full Stack Developer building modern web applications with passion
-              and precision.
+              Full Stack Developer building production Next.js & Spring Boot
+              platforms on Azure.
             </p>
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+              className="mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <Download className="h-4 w-4" />
+              Download Resume
+            </a>
           </div>
 
           <div>
@@ -44,6 +60,22 @@ export function Footer() {
                   className="text-muted-foreground transition-colors hover:text-foreground"
                 >
                   Projects
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#how-i-develop"
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  How I Develop
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#skills"
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  Skills
                 </Link>
               </li>
               <li>
@@ -87,13 +119,13 @@ export function Footer() {
               >
                 <Twitter className="h-5 w-5" />
               </Link>
-              <Link
-                href={EMAIL_URL}
+              <a
+                href={`mailto:${EMAIL_URL}`}
                 className="text-muted-foreground transition-colors hover:text-foreground"
                 aria-label="Email"
               >
                 <Mail className="h-5 w-5" />
-              </Link>
+              </a>
             </div>
           </div>
         </div>

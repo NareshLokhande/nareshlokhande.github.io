@@ -1,19 +1,34 @@
 'use client';
 
+import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Cloud, Database, Lock, Server, Sparkles, Wrench } from 'lucide-react';
 
-const skillCategories = [
+type Proficiency = 'daily' | 'comfortable' | 'familiar';
+
+interface Skill {
+  name: string;
+  level: Proficiency;
+}
+
+interface SkillCategory {
+  icon: typeof Sparkles;
+  title: string;
+  color: string;
+  skills: Skill[];
+}
+
+const skillCategories: SkillCategory[] = [
   {
     icon: Sparkles,
     title: 'Frontend',
     color: 'text-purple-600 dark:text-purple-400',
     skills: [
-      'Next.js (App Router, SSR, routing, data fetching)',
-      'React, TypeScript',
-      'Context-based state management',
-      'Tailwind CSS',
-      'Client–server rendering strategies',
+      { name: 'Next.js (App Router, SSR, routing, data fetching)', level: 'daily' },
+      { name: 'React + TypeScript', level: 'daily' },
+      { name: 'Tailwind CSS', level: 'daily' },
+      { name: 'Context-based state management', level: 'comfortable' },
+      { name: 'Client–server rendering strategies', level: 'comfortable' },
     ],
   },
   {
@@ -21,11 +36,11 @@ const skillCategories = [
     title: 'Backend',
     color: 'text-green-600 dark:text-green-400',
     skills: [
-      'Java, Spring Boot',
-      'REST API design',
-      'Modular architecture with microservices readiness',
-      'Spring Security (JWT, role-based access)',
-      'Event-driven concepts (RabbitMQ – basic usage)',
+      { name: 'Java, Spring Boot', level: 'daily' },
+      { name: 'REST API design', level: 'daily' },
+      { name: 'Modular / microservices architecture', level: 'comfortable' },
+      { name: 'Spring Security (JWT, RBAC)', level: 'comfortable' },
+      { name: 'Event-driven concepts (RabbitMQ)', level: 'familiar' },
     ],
   },
   {
@@ -33,11 +48,11 @@ const skillCategories = [
     title: 'Database & Data',
     color: 'text-orange-600 dark:text-orange-400',
     skills: [
-      'SQL Server',
-      'Relational data modeling',
-      'Liquibase (schema migrations & versioning)',
-      'Environment-safe database changes',
-      'Query optimization & integrity constraints',
+      { name: 'SQL Server', level: 'daily' },
+      { name: 'Liquibase (schema migrations & versioning)', level: 'daily' },
+      { name: 'Relational data modeling', level: 'comfortable' },
+      { name: 'Query optimization & integrity constraints', level: 'comfortable' },
+      { name: 'Environment-safe database changes', level: 'comfortable' },
     ],
   },
   {
@@ -45,12 +60,11 @@ const skillCategories = [
     title: 'Cloud & Deployment',
     color: 'text-blue-600 dark:text-blue-400',
     skills: [
-      'Azure App Service',
-      'Azure Blob Storage',
-      'Environment-based configuration',
-      'CI/CD basics (GitHub Actions)',
-      'Production debugging & logs',
-      'Application configuration & secrets management',
+      { name: 'Azure App Service', level: 'daily' },
+      { name: 'Azure Blob Storage', level: 'comfortable' },
+      { name: 'CI/CD with GitHub Actions', level: 'comfortable' },
+      { name: 'Environment-based configuration & secrets', level: 'comfortable' },
+      { name: 'Production debugging & logs', level: 'comfortable' },
     ],
   },
   {
@@ -58,39 +72,73 @@ const skillCategories = [
     title: 'Security & Authentication',
     color: 'text-red-600 dark:text-red-400',
     skills: [
-      'JWT-based authentication',
-      'OTP verification flows (email)',
-      'Session expiry & token refresh strategies',
-      'Role-based access control (RBAC)',
-      'Secure API boundary design',
+      { name: 'JWT-based authentication', level: 'daily' },
+      { name: 'Role-based access control (RBAC)', level: 'daily' },
+      { name: 'OTP / email verification flows', level: 'comfortable' },
+      { name: 'Session expiry & token refresh', level: 'comfortable' },
+      { name: 'Secure API boundary design', level: 'comfortable' },
     ],
   },
   {
     icon: Wrench,
-    title: 'Tools & Engineering Practices',
+    title: 'Engineering Practices',
     color: 'text-indigo-600 dark:text-indigo-400',
     skills: [
-      'Clean API contracts',
-      'Audit logging & soft deletes',
-      'Debugging production issues',
-      'Writing maintainable, extensible code',
-      'Git & GitHub',
+      { name: 'Clean API contracts', level: 'daily' },
+      { name: 'Audit logging & soft deletes', level: 'daily' },
+      { name: 'Git & GitHub workflows', level: 'daily' },
+      { name: 'Debugging production issues', level: 'comfortable' },
+      { name: 'Writing maintainable, extensible code', level: 'comfortable' },
     ],
   },
 ];
+
+const levelStyles: Record<
+  Proficiency,
+  { label: string; className: string }
+> = {
+  daily: {
+    label: 'Daily',
+    className:
+      'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  },
+  comfortable: {
+    label: 'Comfortable',
+    className:
+      'border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300',
+  },
+  familiar: {
+    label: 'Familiar',
+    className:
+      'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  },
+};
 
 export function Skills() {
   return (
     <section id="skills" className="min-h-screen px-4 py-24 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-6xl">
-        <div className="mb-16 text-center">
+        <div className="mb-12 text-center">
           <h2 className="mb-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Skills & Technologies
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            These are the tools I&apos;ve used extensively in production
-            systems.
+            Tools I&apos;ve used in production, grouped by how often I reach for
+            them.
           </p>
+        </div>
+
+        <div className="mb-10 flex flex-wrap items-center justify-center gap-3 text-xs">
+          {(Object.keys(levelStyles) as Proficiency[]).map((key) => (
+            <span key={key} className="flex items-center gap-2">
+              <span
+                className={`inline-block h-2.5 w-2.5 rounded-full ${levelStyles[key].className.split(' ')[1]}`}
+              />
+              <span className="text-muted-foreground">
+                {levelStyles[key].label}
+              </span>
+            </span>
+          ))}
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -110,14 +158,21 @@ export function Skills() {
                   <CardTitle className="text-xl">{category.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ul className="space-y-2">
-                    {category.skills.map((skill, index) => (
+                  <ul className="space-y-2.5">
+                    {category.skills.map((skill) => (
                       <li
-                        key={index}
-                        className="flex items-start gap-2 text-sm text-muted-foreground"
+                        key={skill.name}
+                        className="flex items-start justify-between gap-2 text-sm"
                       >
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"></span>
-                        <span className="leading-relaxed">{skill}</span>
+                        <span className="leading-relaxed text-muted-foreground">
+                          {skill.name}
+                        </span>
+                        <Badge
+                          variant="outline"
+                          className={`shrink-0 text-[10px] uppercase tracking-wider ${levelStyles[skill.level].className}`}
+                        >
+                          {levelStyles[skill.level].label}
+                        </Badge>
                       </li>
                     ))}
                   </ul>

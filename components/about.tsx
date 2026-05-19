@@ -6,21 +6,21 @@ import { Code, Palette, Zap } from 'lucide-react';
 const features = [
   {
     icon: Code,
-    title: 'Clean Code',
+    title: 'Production-grade engineering',
     description:
-      'Writing maintainable, scalable, and well-documented code that stands the test of time.',
+      'Writing modular, well-tested code that survives schema changes, scale-ups, and on-call shifts.',
   },
   {
     icon: Palette,
-    title: 'Beautiful Design',
+    title: 'End-to-end ownership',
     description:
-      'Creating visually appealing interfaces that provide exceptional user experiences.',
+      'From Liquibase migrations to Spring Boot services to Next.js dashboards — I ship the whole slice.',
   },
   {
     icon: Zap,
-    title: 'Performance',
+    title: 'Pragmatic delivery',
     description:
-      'Optimizing applications for speed and efficiency to deliver lightning-fast experiences.',
+      'Right tool for the job, not the trendiest. I optimize for clarity, reliability, and time-to-feedback.',
   },
 ];
 
@@ -33,8 +33,8 @@ export function About() {
             About Me
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            I&apos;m a passionate full stack developer with a love for creating
-            innovative solutions and bringing ideas to life through code.
+            Full Stack Developer at BITCOLLAGE, building education and tutoring
+            platforms with Spring Boot, Next.js, and Azure.
           </p>
         </div>
 
@@ -63,17 +63,19 @@ export function About() {
           </CardHeader>
           <CardContent className="space-y-4 text-muted-foreground">
             <p>
-              With a strong foundation in both frontend and backend development,
-              I specialize in building end-to-end web applications. My expertise
-              spans modern JavaScript frameworks, cloud technologies, and best
-              practices in software engineering.
+              I work across the full stack — Java/Spring Boot on the backend,
+              Next.js (App Router, SSR) on the frontend, SQL Server with
+              Liquibase for data, and Azure for deployment. At BITCOLLAGE, I
+              ship client platforms end-to-end: designing microservice
+              boundaries, building role-based dashboards, and managing schema
+              evolution across environments.
             </p>
             <p>
-              I&apos;m constantly learning and exploring new technologies to
-              stay at the forefront of web development. When I&apos;m not
-              coding, you can find me contributing to open-source projects,
-              writing technical articles, or exploring the latest trends in
-              tech.
+              I care about the unglamorous parts of software — audit trails,
+              clean API contracts, predictable migrations, and security
+              boundaries that hold up under load. I&apos;m currently going
+              deeper on distributed-systems patterns and exploring how AI tools
+              fit into product engineering workflows.
             </p>
           </CardContent>
         </Card>
