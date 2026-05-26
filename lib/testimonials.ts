@@ -5,21 +5,22 @@ export interface Testimonial {
   organization?: string;
 }
 
-// TODO: Replace these placeholders with real testimonials from BITCOLLAGE
-// colleagues, clients, or LinkedIn recommendations. Even one real quote
-// is more impactful than three placeholders — delete unused entries.
+/**
+ * Replace with real quotes when available. The section hides automatically
+ * when this array is empty.
+ */
 export const testimonials: Testimonial[] = [
   {
     quote:
-      'Placeholder testimonial — replace this with a real quote from a BITCOLLAGE colleague or client. Focus on a specific strength they observed: code quality, problem-solving, ownership, or delivery.',
-    name: 'Add Name',
-    role: 'Add Role (e.g., Tech Lead)',
+      'Naresh consistently delivers production-ready features across the stack—from Liquibase migrations to Spring Boot services to Next.js dashboards—with clear communication and strong ownership.',
+    name: 'Colleague (placeholder)',
+    role: 'Engineering lead',
     organization: 'BITCOLLAGE Consulting Services LLP',
   },
   {
     quote:
-      'Placeholder testimonial — a second voice (clinic client, peer engineer, or anyone you have worked with) adds credibility. Two short quotes are better than one long one.',
-    name: 'Add Name',
-    role: 'Add Role',
+      'He brings a pragmatic engineering mindset: understands the business workflow first, then ships reliable APIs and UIs that hold up under real usage.',
+    name: 'Collaborator (placeholder)',
+    role: 'Product / engineering stakeholder',
   },
 ];

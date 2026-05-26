@@ -1,8 +1,17 @@
 'use client';
 
+import { ScrollReveal } from '@/components/scroll-reveal';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { getSkillHint } from '@/lib/skill-hints';
 import { Cloud, Database, Lock, Server, Sparkles, Wrench } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 type Proficiency = 'daily' | 'comfortable' | 'familiar';
 
@@ -12,14 +21,22 @@ interface Skill {
 }
 
 interface SkillCategory {
+  id: string;
   icon: typeof Sparkles;
   title: string;
   color: string;
   skills: Skill[];
 }
 
+const proficiencyValue: Record<Proficiency, number> = {
+  daily: 90,
+  comfortable: 70,
+  familiar: 45,
+};
+
 const skillCategories: SkillCategory[] = [
   {
+    id: 'frontend',
     icon: Sparkles,
     title: 'Frontend',
     color: 'text-purple-600 dark:text-purple-400',
@@ -32,6 +49,7 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
+    id: 'backend',
     icon: Server,
     title: 'Backend',
     color: 'text-green-600 dark:text-green-400',
@@ -44,6 +62,7 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
+    id: 'database',
     icon: Database,
     title: 'Database & Data',
     color: 'text-orange-600 dark:text-orange-400',
@@ -56,6 +75,7 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
+    id: 'cloud',
     icon: Cloud,
     title: 'Cloud & Deployment',
     color: 'text-blue-600 dark:text-blue-400',
@@ -68,6 +88,7 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
+    id: 'security',
     icon: Lock,
     title: 'Security & Authentication',
     color: 'text-red-600 dark:text-red-400',
@@ -80,6 +101,7 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
+    id: 'practices',
     icon: Wrench,
     title: 'Engineering Practices',
     color: 'text-indigo-600 dark:text-indigo-400',
@@ -114,11 +136,66 @@ const levelStyles: Record<
   },
 };
 
+function SkillList({ skills }: { skills: Skill[] }) {
+  const [barsReady, setBarsReady] = useState(false);
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setBarsReady(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  return (
+    <ul className="space-y-5">
+      {skills.map((skill) => {
+        const hint = getSkillHint(skill.name);
+        const value = proficiencyValue[skill.level];
+        const displayValue = barsReady ? value : 0;
+
+        return (
+          <li key={skill.name} className="space-y-2">
+            <div className="flex items-start justify-between gap-2">
+              {hint ? (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="cursor-help text-left text-sm text-muted-foreground underline decoration-dotted decoration-muted-foreground/40 underline-offset-2">
+                      {skill.name}
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs">
+                    {hint}
+                  </TooltipContent>
+                </Tooltip>
+              ) : (
+                <span className="text-sm text-muted-foreground">
+                  {skill.name}
+                </span>
+              )}
+              <Badge
+                variant="outline"
+                className={`h-5 shrink-0 px-1.5 py-0 text-[9px] font-semibold uppercase tracking-wide ${levelStyles[skill.level].className}`}
+              >
+                {levelStyles[skill.level].label}
+              </Badge>
+            </div>
+            <Progress
+              value={displayValue}
+              className="h-1.5 transition-all duration-700 ease-out"
+              aria-label={`${skill.name}: ${levelStyles[skill.level].label}`}
+            />
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
 export function Skills() {
+  const [activeTab, setActiveTab] = useState(skillCategories[0].id);
+
   return (
     <section id="skills" className="min-h-screen px-4 py-24 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-6xl">
-        <div className="mb-8 text-center">
+        <ScrollReveal className="mb-8 text-center">
           <h2 className="mb-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Skills & Technologies
           </h2>
@@ -126,9 +203,9 @@ export function Skills() {
             Tools I&apos;ve used in production, grouped by how often I reach for
             them.
           </p>
-        </div>
+        </ScrollReveal>
 
-        <div className="mb-6 flex flex-wrap items-center justify-center gap-2.5 text-xs">
+        <ScrollReveal delay={80} className="mb-6 flex flex-wrap items-center justify-center gap-2.5 text-xs">
           {(Object.keys(levelStyles) as Proficiency[]).map((key) => (
             <span key={key} className="flex items-center gap-2">
               <span
@@ -139,48 +216,51 @@ export function Skills() {
               </span>
             </span>
           ))}
-        </div>
+        </ScrollReveal>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {skillCategories.map((category) => {
-            const Icon = category.icon;
-            return (
-              <Card
-                key={category.title}
-                className="group gap-0 border-border/50 py-0 transition-all hover:shadow-md hover:shadow-primary/5"
+        <ScrollReveal delay={120}>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="mb-6 flex h-auto w-full flex-wrap justify-start gap-1 bg-muted/50 p-1">
+              {skillCategories.map((category) => {
+                const Icon = category.icon;
+                return (
+                  <TabsTrigger
+                    key={category.id}
+                    value={category.id}
+                    className="gap-1.5 px-3 py-2 text-xs sm:text-sm"
+                  >
+                    <Icon className={`h-3.5 w-3.5 ${category.color}`} />
+                    <span className="hidden sm:inline">{category.title}</span>
+                    <span className="sm:hidden">
+                      {category.title.split(' ')[0]}
+                    </span>
+                  </TabsTrigger>
+                );
+              })}
+            </TabsList>
+
+            {skillCategories.map((category) => (
+              <TabsContent
+                key={category.id}
+                value={category.id}
+                className="rounded-lg border border-border/50 bg-card p-6 shadow-sm"
               >
-                <CardHeader className="flex flex-row items-center gap-2.5 space-y-0 px-4 pb-2 pt-3.5">
-                  <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary/10 transition-colors group-hover:bg-primary/20">
-                    <Icon
-                      className={`h-4 w-4 ${category.color} transition-transform group-hover:scale-105`}
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                    <category.icon
+                      className={`h-5 w-5 ${category.color}`}
                     />
                   </div>
-                  <CardTitle className="text-base">{category.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="px-4 pb-3.5 pt-0">
-                  <ul className="space-y-1.5">
-                    {category.skills.map((skill) => (
-                      <li
-                        key={skill.name}
-                        className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-2 gap-y-0.5"
-                      >
-                        <span className="text-xs leading-snug text-muted-foreground">
-                          {skill.name}
-                        </span>
-                        <Badge
-                          variant="outline"
-                          className={`h-5 shrink-0 px-1.5 py-0 text-[9px] font-semibold uppercase tracking-wide ${levelStyles[skill.level].className}`}
-                        >
-                          {levelStyles[skill.level].label}
-                        </Badge>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+                  <h3 className="text-lg font-semibold">{category.title}</h3>
+                </div>
+                <SkillList
+                  key={`${category.id}-${activeTab}`}
+                  skills={category.skills}
+                />
+              </TabsContent>
+            ))}
+          </Tabs>
+        </ScrollReveal>
       </div>
     </section>
   );

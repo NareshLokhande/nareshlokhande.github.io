@@ -36,6 +36,12 @@ const exploreNavItems = [
     id: 'how-i-develop',
     description: 'Workflow, practices, and approach',
   },
+  {
+    name: 'Testimonials',
+    href: '#testimonials',
+    id: 'testimonials',
+    description: 'Feedback from colleagues and collaborators',
+  },
 ] as const;
 
 const sectionIds = [

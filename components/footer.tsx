@@ -1,14 +1,17 @@
 'use client';
 
-import { Download, Github, Linkedin, Mail, Twitter } from 'lucide-react';
-import Link from 'next/link';
+import { copyToClipboard } from '@/lib/clipboard';
 import {
   EMAIL_URL,
   GITHUB_URL,
   LINKEDIN_URL,
   RESUME_URL,
+  SITE_URL,
   TWITTER_URL,
 } from '@/lib/constants';
+import { Copy, Download, Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -33,6 +36,32 @@ export function Footer() {
               <Download className="h-4 w-4" />
               Download Resume
             </a>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="h-8 text-xs"
+                onClick={() =>
+                  copyToClipboard(EMAIL_URL, 'Email copied to clipboard')
+                }
+              >
+                <Copy className="mr-1.5 h-3 w-3" />
+                Copy email
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="h-8 text-xs"
+                onClick={() =>
+                  copyToClipboard(SITE_URL, 'Site URL copied to clipboard')
+                }
+              >
+                <Copy className="mr-1.5 h-3 w-3" />
+                Copy site URL
+              </Button>
+            </div>
           </div>
 
           <div>
@@ -60,6 +89,14 @@ export function Footer() {
                   className="text-muted-foreground transition-colors hover:text-foreground"
                 >
                   Projects
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#testimonials"
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  Testimonials
                 </Link>
               </li>
               <li>

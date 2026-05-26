@@ -17,6 +17,7 @@ export interface Project {
     code: string;
   }[]; // Code examples to showcase
   longDescription?: string; // Detailed description
+  previewImages?: string[]; // Optional screenshots for lightbox gallery
 }
 
 // Helper function to get organization data for a project

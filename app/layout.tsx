@@ -1,7 +1,9 @@
+import { BackToTop } from '@/components/back-to-top';
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import {
   EMAIL_URL,
   GITHUB_URL,
@@ -154,9 +156,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          {children}
-          <Footer />
+          <TooltipProvider delayDuration={200}>
+            <Navbar />
+            {children}
+            <Footer />
+            <BackToTop />
+          </TooltipProvider>
           <Toaster richColors position="top-right" />
         </ThemeProvider>
       </body>

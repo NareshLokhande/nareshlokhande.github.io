@@ -27,8 +27,10 @@ import {
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { EMAIL_URL } from '@/lib/constants';
+import { copyToClipboard } from '@/lib/clipboard';
 import { getProjectOrganization, Project } from '@/lib/projects';
-import { ExternalLink, Github, Lock, Mail } from 'lucide-react';
+import { Copy, ExternalLink, Github, Lock, Mail, X, ZoomIn } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
@@ -40,7 +42,19 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
   const [activeTab, setActiveTab] = useState('preview');
   const [iframeLoading, setIframeLoading] = useState(true);
   const [iframeError, setIframeError] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const hasPreviewImages =
+    project.previewImages && project.previewImages.length > 0;
+
+  useEffect(() => {
+    if (!lightboxImage) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightboxImage(null);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [lightboxImage]);
 
   // Detect X-Frame-Options blocking immediately
   useEffect(() => {
@@ -277,14 +291,41 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
 
         {/* Main Content with Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 lg:w-auto">
-            <TabsTrigger value="preview">Preview</TabsTrigger>
-            <TabsTrigger value="details">Details</TabsTrigger>
-            <TabsTrigger value="code">Code</TabsTrigger>
-          </TabsList>
+          <div className="sticky top-16 z-30 -mx-4 border-b border-border/40 bg-background/95 px-4 py-3 backdrop-blur supports-backdrop-filter:bg-background/80">
+            <TabsList className="grid w-full grid-cols-3 lg:w-auto">
+              <TabsTrigger value="preview">Preview</TabsTrigger>
+              <TabsTrigger value="details">Details</TabsTrigger>
+              <TabsTrigger value="code">Code</TabsTrigger>
+            </TabsList>
+          </div>
 
           {/* Preview Tab */}
           <TabsContent value="preview" className="mt-6">
+            {hasPreviewImages && (
+              <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {project.previewImages!.map((src, index) => (
+                  <button
+                    key={src}
+                    type="button"
+                    className="group relative aspect-video overflow-hidden rounded-lg border border-border/50 bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    onClick={() => setLightboxImage(src)}
+                    aria-label={`View screenshot ${index + 1}`}
+                  >
+                    <Image
+                      src={src}
+                      alt={`${project.title} screenshot ${index + 1}`}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    <span className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/20">
+                      <ZoomIn className="h-8 w-8 text-white opacity-0 transition-opacity group-hover:opacity-100" />
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
+
             <Card className="border-border/50">
               <CardHeader>
                 <CardTitle>Live Preview</CardTitle>
@@ -496,10 +537,14 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                             variant="ghost"
                             size="sm"
                             className="h-6 text-xs"
-                            onClick={() => {
-                              navigator.clipboard.writeText(snippet.code);
-                            }}
+                            onClick={() =>
+                              copyToClipboard(
+                                snippet.code,
+                                'Code copied to clipboard',
+                              )
+                            }
                           >
+                            <Copy className="mr-1 h-3 w-3" />
                             Copy
                           </Button>
                         </div>
@@ -559,6 +604,37 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             )}
           </TabsContent>
         </Tabs>
+
+        {lightboxImage && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Screenshot preview"
+            onClick={() => setLightboxImage(null)}
+          >
+            <button
+              type="button"
+              className="absolute right-4 top-4 rounded-full bg-background/90 p-2 text-foreground shadow-lg"
+              onClick={() => setLightboxImage(null)}
+              aria-label="Close preview"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            <div
+              className="relative max-h-[90vh] max-w-5xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={lightboxImage}
+                alt={`${project.title} screenshot`}
+                width={1200}
+                height={800}
+                className="max-h-[90vh] w-auto rounded-lg object-contain"
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
