@@ -24,7 +24,7 @@ const skillCategories: SkillCategory[] = [
     title: 'Frontend',
     color: 'text-purple-600 dark:text-purple-400',
     skills: [
-      { name: 'Next.js (App Router, SSR, routing, data fetching)', level: 'daily' },
+      { name: 'Next.js (App Router, SSR, data fetching)', level: 'daily' },
       { name: 'React + TypeScript', level: 'daily' },
       { name: 'Tailwind CSS', level: 'daily' },
       { name: 'Context-based state management', level: 'comfortable' },
@@ -118,17 +118,17 @@ export function Skills() {
   return (
     <section id="skills" className="min-h-screen px-4 py-24 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-6xl">
-        <div className="mb-12 text-center">
-          <h2 className="mb-4 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+        <div className="mb-8 text-center">
+          <h2 className="mb-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Skills & Technologies
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
             Tools I&apos;ve used in production, grouped by how often I reach for
             them.
           </p>
         </div>
 
-        <div className="mb-10 flex flex-wrap items-center justify-center gap-3 text-xs">
+        <div className="mb-6 flex flex-wrap items-center justify-center gap-2.5 text-xs">
           {(Object.keys(levelStyles) as Proficiency[]).map((key) => (
             <span key={key} className="flex items-center gap-2">
               <span
@@ -141,35 +141,35 @@ export function Skills() {
           ))}
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {skillCategories.map((category) => {
             const Icon = category.icon;
             return (
               <Card
                 key={category.title}
-                className="group border-border/50 transition-all hover:shadow-lg hover:shadow-primary/5"
+                className="group gap-0 border-border/50 py-0 transition-all hover:shadow-md hover:shadow-primary/5"
               >
-                <CardHeader>
-                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary/20">
+                <CardHeader className="flex flex-row items-center gap-2.5 space-y-0 px-4 pb-2 pt-3.5">
+                  <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary/10 transition-colors group-hover:bg-primary/20">
                     <Icon
-                      className={`h-6 w-6 ${category.color} transition-transform group-hover:scale-110`}
+                      className={`h-4 w-4 ${category.color} transition-transform group-hover:scale-105`}
                     />
                   </div>
-                  <CardTitle className="text-xl">{category.title}</CardTitle>
+                  <CardTitle className="text-base">{category.title}</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2.5">
+                <CardContent className="px-4 pb-3.5 pt-0">
+                  <ul className="space-y-1.5">
                     {category.skills.map((skill) => (
                       <li
                         key={skill.name}
-                        className="flex items-start justify-between gap-2 text-sm"
+                        className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-2 gap-y-0.5"
                       >
-                        <span className="leading-relaxed text-muted-foreground">
+                        <span className="text-xs leading-snug text-muted-foreground">
                           {skill.name}
                         </span>
                         <Badge
                           variant="outline"
-                          className={`shrink-0 text-[10px] uppercase tracking-wider ${levelStyles[skill.level].className}`}
+                          className={`h-5 shrink-0 px-1.5 py-0 text-[9px] font-semibold uppercase tracking-wide ${levelStyles[skill.level].className}`}
                         >
                           {levelStyles[skill.level].label}
                         </Badge>

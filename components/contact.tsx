@@ -14,7 +14,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="min-h-screen bg-muted/30 px-4 py-24 sm:px-6 lg:px-8"
+      className="bg-muted/30 px-4 py-24 sm:px-6 lg:px-8"
     >
       <div className="container mx-auto max-w-4xl">
         <div className="mb-16 text-center">
