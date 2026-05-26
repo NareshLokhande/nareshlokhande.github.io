@@ -7,7 +7,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from '@/components/ui/navigation-menu';
-import { RESUME_URL } from '@/lib/constants';
+import { RESUME_URL, SITE_NAME } from '@/lib/constants';
 import { Download, Menu, Moon, Sun, X } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
@@ -42,7 +42,7 @@ export function Navbar() {
           href="/"
           className="text-xl font-semibold tracking-tight text-foreground transition-colors hover:text-primary"
         >
-          Portfolio
+          {SITE_NAME}
         </Link>
 
         {/* Desktop Navigation */}
