@@ -14,6 +14,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { EMAIL_URL } from '@/lib/constants';
 import { getProjectOrganization, projects } from '@/lib/projects';
+import { cn } from '@/lib/utils';
 import { ExternalLink, Github, Lock, Mail } from 'lucide-react';
 import Link from 'next/link';
 
@@ -35,6 +36,11 @@ function ProjectCard({
   project: (typeof projects)[0];
   handleCodeRequest: (title: string) => void;
 }) {
+  const showCodeButton =
+    (project.github && !project.isPrivate) || project.isPrivate;
+  const showDemoButton =
+    Boolean(project.demo) || (project.isPrivate && !project.demo);
+
   return (
     <Card className="border-border/50 flex flex-col transition-all hover:shadow-md">
       <CardHeader>
@@ -118,19 +124,32 @@ function ProjectCard({
           ))}
         </div>
       </CardContent>
-      <CardFooter className="gap-2">
-        <Button asChild variant="outline" size="sm" className="flex-1">
+      <CardFooter className="grid grid-cols-2 gap-2">
+        <Button
+          asChild
+          variant="outline"
+          size="sm"
+          className="col-span-2 w-full min-w-0"
+        >
           <Link href={`/projects/${project.slug}`}>View Details</Link>
         </Button>
         {/* Code Button */}
         {project.github && !project.isPrivate ? (
-          <Button asChild variant="outline" size="sm">
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            className={cn(
+              'w-full min-w-0',
+              !showDemoButton && 'col-span-2'
+            )}
+          >
             <Link
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Github className="mr-2 h-4 w-4" />
+              <Github className="mr-2 h-4 w-4 shrink-0" />
               Code
             </Link>
           </Button>
@@ -138,18 +157,29 @@ function ProjectCard({
           <Button
             variant="outline"
             size="sm"
+            className={cn(
+              'w-full min-w-0',
+              !showDemoButton && 'col-span-2'
+            )}
             onClick={() => handleCodeRequest(project.title)}
           >
-            <Mail className="mr-2 h-4 w-4" />
+            <Mail className="mr-2 h-4 w-4 shrink-0" />
             Request Code
           </Button>
         ) : null}
 
         {/* Demo Button */}
         {project.demo ? (
-          <Button asChild size="sm">
+          <Button
+            asChild
+            size="sm"
+            className={cn(
+              'w-full min-w-0',
+              !showCodeButton && 'col-span-2'
+            )}
+          >
             <Link href={project.demo} target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="mr-2 h-4 w-4" />
+              <ExternalLink className="mr-2 h-4 w-4 shrink-0" />
               {project.isPrivate ? 'Client Demo' : 'Live Demo'}
             </Link>
           </Button>
@@ -157,9 +187,13 @@ function ProjectCard({
           <Button
             variant="outline"
             size="sm"
+            className={cn(
+              'w-full min-w-0',
+              !showCodeButton && 'col-span-2'
+            )}
             onClick={() => handleCodeRequest(project.title)}
           >
-            <Mail className="mr-2 h-4 w-4" />
+            <Mail className="mr-2 h-4 w-4 shrink-0" />
             Request Demo
           </Button>
         ) : null}

@@ -37,9 +37,10 @@ export function ProjectsSkeleton() {
                   <Skeleton className="h-6 w-28" />
                 </div>
               </CardContent>
-              <CardFooter className="gap-2">
-                <Skeleton className="h-9 w-24" />
-                <Skeleton className="h-9 w-28" />
+              <CardFooter className="grid grid-cols-2 gap-2">
+                <Skeleton className="col-span-2 h-9 w-full" />
+                <Skeleton className="h-9 w-full" />
+                <Skeleton className="h-9 w-full" />
               </CardFooter>
             </Card>
           ))}
