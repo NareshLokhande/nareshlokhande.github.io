@@ -17,11 +17,6 @@ export function Hero() {
       className="flex min-h-screen items-center justify-center px-4 pt-16 sm:px-6 lg:px-8"
     >
       <div className="container mx-auto max-w-4xl text-center">
-        <div className="mb-8 inline-flex items-center rounded-full border bg-muted px-4 py-2 text-sm">
-          <span className="mr-2 h-2 w-2 animate-pulse rounded-full bg-primary"></span>
-          Available for opportunities
-        </div>
-
         <h1 className="mb-6 text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl">
           Hi, I&apos;m{' '}
           <span className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
