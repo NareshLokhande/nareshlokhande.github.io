@@ -23,9 +23,9 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const ROTATING_TAGLINES = [
-  'Next.js & Spring Boot platforms on Azure',
-  'Education & tutoring products at BITCOLLAGE',
-  'Microservices, clean APIs, and reliable delivery',
+  'Java, Spring Boot, and REST APIs',
+  'Scheduling workflows, OTP auth, and audit logging',
+  'Production backend systems on SQL Server and Azure',
 ];
 
 export function Hero() {
@@ -67,11 +67,11 @@ export function Hero() {
 
         <ScrollReveal delay={80}>
           <p className="mb-2 text-xl text-muted-foreground sm:text-2xl">
-            Full Stack Developer
+            Backend Software Engineer
           </p>
           <p
             className={cn(
-              'mx-auto mb-8 min-h-[2rem] max-w-2xl text-lg text-primary/90 sm:text-xl',
+              'mx-auto mb-8 min-h-8 max-w-2xl text-lg text-primary/90 sm:text-xl',
               !prefersReducedMotion && 'transition-opacity duration-300',
               !prefersReducedMotion && !fadeIn && 'opacity-0',
               !prefersReducedMotion && fadeIn && 'opacity-100',
@@ -84,9 +84,9 @@ export function Hero() {
 
         <ScrollReveal delay={160}>
           <p className="mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Currently building education and tutoring platforms at BITCOLLAGE. I
-            focus on microservices, clean API contracts, and shipping reliable
-            software end-to-end.
+            Backend-focused engineer at BITCOLLAGE, building modular backend
+            systems with Java and Spring Boot. I focus on resilient workflows,
+            secure authentication, and production-grade API design.
           </p>
         </ScrollReveal>
 

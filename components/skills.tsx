@@ -36,81 +36,81 @@ const proficiencyValue: Record<Proficiency, number> = {
 
 const skillCategories: SkillCategory[] = [
   {
-    id: 'frontend',
-    icon: Sparkles,
-    title: 'Frontend',
-    color: 'text-purple-600 dark:text-purple-400',
-    skills: [
-      { name: 'Next.js (App Router, SSR, data fetching)', level: 'daily' },
-      { name: 'React + TypeScript', level: 'daily' },
-      { name: 'Tailwind CSS', level: 'daily' },
-      { name: 'Context-based state management', level: 'comfortable' },
-      { name: 'Client–server rendering strategies', level: 'comfortable' },
-    ],
-  },
-  {
-    id: 'backend',
+    id: 'backend-core',
     icon: Server,
-    title: 'Backend',
+    title: 'Backend and Core',
     color: 'text-green-600 dark:text-green-400',
     skills: [
-      { name: 'Java, Spring Boot', level: 'daily' },
-      { name: 'REST API design', level: 'daily' },
-      { name: 'Modular / microservices architecture', level: 'comfortable' },
-      { name: 'Spring Security (JWT, RBAC)', level: 'comfortable' },
-      { name: 'Event-driven concepts (RabbitMQ)', level: 'familiar' },
+      { name: 'Java', level: 'daily' },
+      { name: 'Spring Boot', level: 'daily' },
+      { name: 'Spring MVC', level: 'comfortable' },
+      { name: 'Hibernate and JPA', level: 'comfortable' },
+      { name: 'JDBC and REST APIs', level: 'comfortable' },
     ],
   },
   {
-    id: 'database',
+    id: 'databases',
     icon: Database,
-    title: 'Database & Data',
+    title: 'Databases',
     color: 'text-orange-600 dark:text-orange-400',
     skills: [
       { name: 'SQL Server', level: 'daily' },
-      { name: 'Liquibase (schema migrations & versioning)', level: 'daily' },
-      { name: 'Relational data modeling', level: 'comfortable' },
-      { name: 'Query optimization & integrity constraints', level: 'comfortable' },
-      { name: 'Environment-safe database changes', level: 'comfortable' },
+      { name: 'MySQL', level: 'comfortable' },
+      { name: 'RDBMS data modeling', level: 'comfortable' },
+      { name: 'Liquibase migrations', level: 'daily' },
+      { name: 'Query and validation optimization', level: 'comfortable' },
     ],
   },
   {
-    id: 'cloud',
+    id: 'cloud-devops',
     icon: Cloud,
-    title: 'Cloud & Deployment',
+    title: 'Cloud and DevOps',
     color: 'text-blue-600 dark:text-blue-400',
     skills: [
       { name: 'Azure App Service', level: 'daily' },
       { name: 'Azure Blob Storage', level: 'comfortable' },
-      { name: 'CI/CD with GitHub Actions', level: 'comfortable' },
-      { name: 'Environment-based configuration & secrets', level: 'comfortable' },
-      { name: 'Production debugging & logs', level: 'comfortable' },
+      { name: 'GitHub Actions CI/CD', level: 'comfortable' },
+      { name: 'Docker', level: 'comfortable' },
+      { name: 'Maven', level: 'comfortable' },
     ],
   },
   {
-    id: 'security',
+    id: 'security-features',
     icon: Lock,
-    title: 'Security & Authentication',
+    title: 'Security and Features',
     color: 'text-red-600 dark:text-red-400',
     skills: [
-      { name: 'JWT-based authentication', level: 'daily' },
-      { name: 'Role-based access control (RBAC)', level: 'daily' },
-      { name: 'OTP / email verification flows', level: 'comfortable' },
-      { name: 'Session expiry & token refresh', level: 'comfortable' },
-      { name: 'Secure API boundary design', level: 'comfortable' },
+      { name: 'JWT authentication', level: 'daily' },
+      { name: 'OTP verification', level: 'comfortable' },
+      { name: 'Audit logging', level: 'daily' },
+      { name: 'Soft deletes', level: 'daily' },
+      { name: 'Role-based authorization', level: 'comfortable' },
     ],
   },
   {
-    id: 'practices',
+    id: 'architecture',
     icon: Wrench,
-    title: 'Engineering Practices',
+    title: 'Architecture and Systems',
     color: 'text-indigo-600 dark:text-indigo-400',
     skills: [
-      { name: 'Clean API contracts', level: 'daily' },
-      { name: 'Audit logging & soft deletes', level: 'daily' },
-      { name: 'Git & GitHub workflows', level: 'daily' },
-      { name: 'Debugging production issues', level: 'comfortable' },
-      { name: 'Writing maintainable, extensible code', level: 'comfortable' },
+      { name: 'Design patterns', level: 'comfortable' },
+      { name: 'Clean architecture', level: 'comfortable' },
+      { name: 'Layered architecture', level: 'comfortable' },
+      { name: 'Multi-tenant service design', level: 'familiar' },
+      { name: 'Event-driven workflows', level: 'familiar' },
+    ],
+  },
+  {
+    id: 'frontend-secondary',
+    icon: Sparkles,
+    title: 'Frontend (secondary)',
+    color: 'text-purple-600 dark:text-purple-400',
+    skills: [
+      { name: 'Next.js', level: 'comfortable' },
+      { name: 'React', level: 'comfortable' },
+      { name: 'TypeScript', level: 'comfortable' },
+      { name: 'Tailwind CSS', level: 'comfortable' },
+      { name: 'Frontend integration for backend APIs', level: 'familiar' },
     ],
   },
 ];
@@ -200,8 +200,8 @@ export function Skills() {
             Skills & Technologies
           </h2>
           <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Tools I&apos;ve used in production, grouped by how often I reach for
-            them.
+            Technologies from my resume, grouped by backend core strengths and
+            production experience.
           </p>
         </ScrollReveal>
 

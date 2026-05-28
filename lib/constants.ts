@@ -1,15 +1,15 @@
 export const SITE_URL = 'https://nareshlokhande.github.io';
 export const SITE_NAME = 'Naresh Lokhande';
-export const SITE_TITLE = 'Naresh Lokhande — Full Stack Developer';
+export const SITE_TITLE = 'Naresh Lokhande — Backend Software Engineer';
 export const SITE_DESCRIPTION =
-  'Full Stack Developer building production Next.js & Spring Boot platforms on Azure. Currently shipping education and tutoring platforms at BITCOLLAGE.';
+  'Backend-focused Software Engineer building modular backend systems and REST APIs with Java and Spring Boot, with experience in scheduling workflows, authentication, and audit-ready services.';
 export const TWITTER_HANDLE = '@nareshlokhande_';
 
-export const GITHUB_URL = 'https://github.com/nareshlokhande';
+export const GITHUB_URL = 'https://github.com/naresh-lokhande/';
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/nareshlokhande/';
 export const TWITTER_URL = 'https://x.com/nareshlokhande_';
 export const EMAIL_URL = 'nareshlokhande.dev@gmail.com';
-export const RESUME_URL = '/resume.pdf';
+export const RESUME_URL = '/Naresh_Lokhande_Backend_SDE.pdf';
 
 // Organization configurations
 export interface Organization {

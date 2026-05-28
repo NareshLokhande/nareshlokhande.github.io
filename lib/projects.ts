@@ -47,11 +47,11 @@ export function getProjectOrganization(project: Project) {
 export const projects: Project[] = [
   {
     slug: '24tutors',
-    title: '24Tutors – Online Tutoring Platform',
+    title: 'Scheduling and Workflow System',
     description:
-      'A comprehensive online tutoring platform with microservices architecture, featuring role-based dashboards, batch management, scheduling, and real-time notifications.',
+      'Role-based class scheduling and rescheduling system with recurring events, attendance logs, and per-session history designed for data consistency.',
     longDescription:
-      'Professional project developed as part of my role at BITCOLLAGE for a client. A production-grade online tutoring platform built with microservices architecture. I designed and implemented a microservices-based backend using Spring Boot, built SSR-based Next.js frontend with role-based dashboards, implemented batch management, scheduling, rescheduling logic, and notifications. Integrated authentication, OTP verification, audit logging, and soft delete functionality. Worked on calendar-based class scheduling and reschedule flows, and managed database migrations using Liquibase across environments.',
+      'Backend system developed at BITCOLLAGE to handle class scheduling operations across admin, teacher, and student roles. I implemented recurring schedules, conflict-aware rescheduling, attendance/event history tracking, and RBAC-aware control flows. The system was designed to preserve reporting correctness through teacher reassignments and timeline changes while using SQL Server and Liquibase for consistent schema versioning.',
     technologies: [
       'Next.js',
       'React',
@@ -66,14 +66,12 @@ export const projects: Project[] = [
     isPrivate: true,
     organizationKey: 'BITCOLLAGE',
     features: [
-      'Microservices-based backend architecture serving multiple roles (students, tutors, admins)',
-      'SSR-based Next.js frontend with role-based dashboards',
-      'Batch management and scheduling system handling concurrent class sessions',
-      'Calendar-based class scheduling and rescheduling with conflict detection',
-      'OTP verification, JWT-based authentication, and session management',
-      'Audit logging and soft-delete patterns for compliance and recovery',
-      'Versioned database migrations with Liquibase across dev/staging/prod',
-      'Real-time notifications for class updates and reminders',
+      'Role-based scheduling and rescheduling workflows for admin, teacher, and student actors',
+      'Recurring event support with conflict checks and operational guardrails',
+      'Attendance logs and per-session history for consistent reporting',
+      'Data model designed to stay accurate through teacher reassignment scenarios',
+      'OTP and JWT-backed authentication with audit logging and soft-delete support',
+      'SQL Server persistence with Liquibase migrations across environments',
     ],
     codeSnippets: [
       {

@@ -8,33 +8,33 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { careerTimeline } from '@/lib/timeline';
-import { ChevronDown, Code, Palette, Zap } from 'lucide-react';
+import { ChevronDown, Code, Database, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
 
 const features = [
   {
     icon: Code,
-    title: 'Production-grade engineering',
+    title: 'Backend architecture first',
     description:
-      'Writing modular, well-tested code that survives schema changes, scale-ups, and on-call shifts.',
+      'Designing modular Java and Spring Boot services with clean boundaries, reusable components, and predictable API contracts.',
     extra:
-      'I lean on typed contracts, migration reviews, and observability so production surprises are rare—not ignored.',
+      'I prioritize maintainability and correctness so features can evolve without introducing fragile coupling.',
   },
   {
-    icon: Palette,
-    title: 'End-to-end ownership',
+    icon: Database,
+    title: 'Data and workflow reliability',
     description:
-      'From Liquibase migrations to Spring Boot services to Next.js dashboards — I ship the whole slice.',
+      'Building scheduling/rescheduling workflows, Liquibase-backed schema evolution, and data models that preserve consistency.',
     extra:
-      'That means I can trace a bug from the UI through the API to the database and fix it without handoffs.',
+      'I design systems around real operational needs: role-based flows, audit trails, and safe rollback strategies.',
   },
   {
-    icon: Zap,
-    title: 'Pragmatic delivery',
+    icon: ShieldCheck,
+    title: 'Security and compliance by design',
     description:
-      'Right tool for the job, not the trendiest. I optimize for clarity, reliability, and time-to-feedback.',
+      'Implementing JWT/OTP verification, role-based authorization, and audit logging as core architecture concerns.',
     extra:
-      'I ship thin vertical slices early, validate with stakeholders, and harden only what the product actually needs.',
+      'This keeps services production-ready while meeting security and traceability requirements from day one.',
   },
 ];
 
@@ -89,8 +89,8 @@ export function About() {
             About Me
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            Full Stack Developer at BITCOLLAGE, building education and tutoring
-            platforms with Spring Boot, Next.js, and Azure.
+            Backend Software Engineer at BITCOLLAGE, building modular services
+            and workflow-driven platforms with Java, Spring Boot, and SQL Server.
           </p>
         </ScrollReveal>
 
@@ -111,19 +111,18 @@ export function About() {
             </CardHeader>
             <CardContent className="space-y-4 text-muted-foreground">
               <p>
-                I work across the full stack — Java/Spring Boot on the backend,
-                Next.js (App Router, SSR) on the frontend, SQL Server with
-                Liquibase for data, and Azure for deployment. At BITCOLLAGE, I
-                ship client platforms end-to-end: designing microservice
-                boundaries, building role-based dashboards, and managing schema
-                evolution across environments.
+                I build backend systems for education and SaaS products using
+                Java, Spring Boot, SQL Server, and Liquibase. At BITCOLLAGE, I
+                design and ship REST APIs, role-based scheduling workflows, and
+                reusable service modules that improve delivery speed while
+                preserving correctness.
               </p>
               <p>
-                I care about the unglamorous parts of software — audit trails,
-                clean API contracts, predictable migrations, and security
-                boundaries that hold up under load. I&apos;m currently going
-                deeper on distributed-systems patterns and exploring how AI tools
-                fit into product engineering workflows.
+                I focus on production fundamentals: OTP/JWT-based authentication,
+                audit logging, soft-delete support, and deployment pipelines on
+                Azure. Recently, I&apos;ve been working on schema-per-tenant
+                multi-tenant architecture and event-driven onboarding for ESG
+                workflows.
               </p>
             </CardContent>
           </Card>
@@ -137,7 +136,7 @@ export function About() {
             {careerTimeline.map((milestone, index) => (
               <li key={milestone.title} className="relative mb-10 last:mb-0">
                 <span
-                  className="absolute -left-[2.125rem] top-1.5 flex h-3 w-3 rounded-full bg-primary ring-4 ring-background"
+                  className="absolute -left-8.5 top-1.5 flex h-3 w-3 rounded-full bg-primary ring-4 ring-background"
                   aria-hidden
                 />
                 <ScrollReveal delay={index * 100}>

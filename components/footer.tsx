@@ -23,8 +23,8 @@ export function Footer() {
           <div>
             <h3 className="mb-4 text-lg font-semibold">Naresh Lokhande</h3>
             <p className="text-sm text-muted-foreground">
-              Full Stack Developer building production Next.js & Spring Boot
-              platforms on Azure.
+              Backend Software Engineer building production Java and Spring Boot
+              systems with secure APIs and reliable workflows.
             </p>
             <a
               href={RESUME_URL}

@@ -6,21 +6,21 @@ export interface TimelineMilestone {
 
 export const careerTimeline: TimelineMilestone[] = [
   {
-    period: 'Present',
-    title: 'Full Stack Developer — BITCOLLAGE',
+    period: 'Jan 2025 - Present',
+    title: 'Software Engineer — BITCOLLAGE Consulting Services LLP',
     description:
-      'Shipping education and tutoring platforms with Spring Boot microservices, Next.js dashboards, and Azure deployments.',
+      'Designed REST APIs with Java, Spring Boot, and SQL Server, improving development efficiency through reusable patterns and optimized validations.',
   },
   {
-    period: 'Focus areas',
-    title: 'End-to-end platform delivery',
+    period: 'Key impact',
+    title: 'Workflow and security systems',
     description:
-      'Schema migrations with Liquibase, JWT/RBAC auth, scheduling systems, and production debugging across the stack.',
+      'Built role-based scheduling/rescheduling workflows, OTP verification, audit logging, soft-delete support, and CI/CD deployments to Azure with Liquibase-managed schema versioning.',
   },
   {
-    period: 'Growing',
-    title: 'Distributed systems & AI-assisted workflows',
+    period: 'Recent work',
+    title: 'Multi-tenant ESG platform',
     description:
-      'Deepening microservices patterns and exploring how AI tools fit into product engineering without sacrificing quality.',
+      'Developed schema-per-tenant architecture, JWT + Google OAuth2 security, and event-driven onboarding/provisioning using Java 21, Spring Boot, PostgreSQL, and Hibernate.',
   },
 ];
