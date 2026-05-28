@@ -18,6 +18,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { EMAIL_URL } from '@/lib/constants';
+import { getTechLogo } from '@/lib/tech-logos';
 import { getProjectOrganization, projects } from '@/lib/projects';
 import { getTechHint } from '@/lib/tech-hints';
 import { cn } from '@/lib/utils';
@@ -30,10 +31,6 @@ type CategoryFilter = 'all' | 'professional' | 'personal';
 function isProfessionalProject(project: (typeof projects)[0]): boolean {
   return project.isPrivate === true && project.organizationKey !== undefined;
 }
-
-const allTechnologies = Array.from(
-  new Set(projects.flatMap((p) => p.technologies)),
-).sort();
 
 function ProjectCard({
   project,
@@ -48,11 +45,11 @@ function ProjectCard({
     Boolean(project.demo) || (project.isPrivate && !project.demo);
 
   return (
-    <Card className="group flex flex-col border-border/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-primary/5">
+    <Card className="group flex h-full flex-col border-border/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-primary/5">
       <CardHeader>
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1">
-            <CardTitle>
+            <CardTitle className="line-clamp-2 min-h-12 leading-6">
               <Link
                 href={`/projects/${project.slug}`}
                 className="transition-colors hover:text-primary"
@@ -117,13 +114,30 @@ function ProjectCard({
             </Badge>
           )}
         </div>
-        <CardDescription>{project.description}</CardDescription>
+        <CardDescription className="line-clamp-3 min-h-16 leading-6">
+          {project.description}
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex-1">
-        <div className="flex flex-wrap gap-2">
+        <div className="flex min-h-16 flex-wrap content-start gap-2">
           {project.technologies.map((tech) => {
             const hint = getTechHint(tech);
-            const badge = (
+            const logo = getTechLogo(tech);
+            const badge = logo ? (
+              <span
+                key={tech}
+                className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border/60 bg-background/80 p-1.5"
+                aria-label={tech}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={logo.logoUrl}
+                  alt={logo.name}
+                  className="h-5 w-5 object-contain"
+                  loading="lazy"
+                />
+              </span>
+            ) : (
               <Badge key={tech} variant="secondary" className="cursor-default">
                 {tech}
               </Badge>
@@ -132,7 +146,10 @@ function ProjectCard({
             return (
               <Tooltip key={tech}>
                 <TooltipTrigger asChild>{badge}</TooltipTrigger>
-                <TooltipContent>{hint}</TooltipContent>
+                <TooltipContent>
+                  <p className="font-medium">{tech}</p>
+                  <p className="text-xs text-muted-foreground">{hint}</p>
+                </TooltipContent>
               </Tooltip>
             );
           })}
@@ -210,7 +227,6 @@ const categoryOptions: { id: CategoryFilter; label: string }[] = [
 
 export function Projects() {
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('all');
-  const [activeTech, setActiveTech] = useState<string[]>([]);
 
   const handleCodeRequest = (projectTitle: string) => {
     const subject = encodeURIComponent(`Code Access Request: ${projectTitle}`);
@@ -223,26 +239,14 @@ export function Projects() {
     );
   };
 
-  const toggleTech = (tech: string) => {
-    setActiveTech((prev) =>
-      prev.includes(tech) ? prev.filter((t) => t !== tech) : [...prev, tech],
-    );
-  };
-
   const filteredProjects = useMemo(() => {
     return projects.filter((project) => {
       const isPro = isProfessionalProject(project);
       if (categoryFilter === 'professional' && !isPro) return false;
       if (categoryFilter === 'personal' && isPro) return false;
-      if (
-        activeTech.length > 0 &&
-        !activeTech.every((t) => project.technologies.includes(t))
-      ) {
-        return false;
-      }
       return true;
     });
-  }, [categoryFilter, activeTech]);
+  }, [categoryFilter]);
 
   const professionalCount = projects.filter(isProfessionalProject).length;
   const personalCount = projects.length - professionalCount;
@@ -287,36 +291,6 @@ export function Projects() {
               </Button>
             ))}
           </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Tech:
-            </span>
-            {allTechnologies.map((tech) => (
-              <Button
-                key={tech}
-                type="button"
-                size="sm"
-                variant={activeTech.includes(tech) ? 'secondary' : 'ghost'}
-                className="h-7 px-2.5 text-xs"
-                aria-pressed={activeTech.includes(tech)}
-                onClick={() => toggleTech(tech)}
-              >
-                {tech}
-              </Button>
-            ))}
-            {activeTech.length > 0 && (
-              <Button
-                type="button"
-                size="sm"
-                variant="link"
-                className="h-7 text-xs"
-                onClick={() => setActiveTech([])}
-              >
-                Clear tech filters
-              </Button>
-            )}
-          </div>
         </ScrollReveal>
 
         {filteredProjects.length === 0 ? (
@@ -329,7 +303,7 @@ export function Projects() {
         ) : (
           <div className="grid gap-6 md:grid-cols-2">
             {filteredProjects.map((project, index) => (
-              <ScrollReveal key={project.slug} delay={index * 60}>
+              <ScrollReveal key={project.slug} delay={index * 60} className="h-full">
                 <ProjectCard
                   project={project}
                   handleCodeRequest={handleCodeRequest}
@@ -339,7 +313,7 @@ export function Projects() {
           </div>
         )}
 
-        {categoryFilter === 'all' && activeTech.length === 0 && (
+        {categoryFilter === 'all' && (
           <ScrollReveal delay={200} className="mt-16">
             <p className="text-center text-sm text-muted-foreground">
               <em>

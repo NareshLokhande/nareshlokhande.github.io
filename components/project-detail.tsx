@@ -29,6 +29,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { EMAIL_URL } from '@/lib/constants';
 import { copyToClipboard } from '@/lib/clipboard';
 import { getProjectOrganization, Project } from '@/lib/projects';
+import { getTechHint } from '@/lib/tech-hints';
 import { Copy, ExternalLink, Github, Lock, Mail, X, ZoomIn } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -36,6 +37,26 @@ import { useEffect, useRef, useState } from 'react';
 
 interface ProjectDetailProps {
   project: Project;
+}
+
+function getTechRelevance(project: Project, tech: string): string {
+  const hint = getTechHint(tech);
+  if (hint) return hint;
+
+  const context = [
+    project.description,
+    project.longDescription ?? '',
+    ...(project.features ?? []),
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  const normalizedTech = tech.toLowerCase();
+  if (context.includes(normalizedTech)) {
+    return `Applied directly in this project's implementation and delivery.`;
+  }
+
+  return 'Part of the project stack used to deliver core features.';
 }
 
 export function ProjectDetail({ project }: ProjectDetailProps) {
@@ -484,13 +505,29 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               <Card className="border-border/50">
                 <CardHeader>
                   <CardTitle>Technologies</CardTitle>
+                  <CardDescription>
+                    Stack choices and how they contribute to this project.
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="mb-4 flex flex-wrap gap-2">
                     {project.technologies.map((tech) => (
                       <Badge key={tech} variant="secondary">
                         {tech}
                       </Badge>
+                    ))}
+                  </div>
+                  <div className="space-y-2">
+                    {project.technologies.map((tech) => (
+                      <div
+                        key={`${tech}-context`}
+                        className="rounded-md border border-border/60 bg-muted/40 px-3 py-2"
+                      >
+                        <p className="text-sm font-medium text-foreground">{tech}</p>
+                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                          {getTechRelevance(project, tech)}
+                        </p>
+                      </div>
                     ))}
                   </div>
                 </CardContent>

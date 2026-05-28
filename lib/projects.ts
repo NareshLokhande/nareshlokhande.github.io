@@ -55,7 +55,6 @@ export const projects: Project[] = [
     technologies: [
       'Java',
       'Spring Boot',
-      'REST APIs',
       'SQL Server',
       'Azure',
       'Liquibase',
@@ -106,12 +105,8 @@ public void reassignTeacher(UUID batchId, UUID fromTeacher, UUID toTeacher) {
       'I designed and developed a multi-tenant carbon accounting platform across backend, frontend, and database layers. Tenant context is resolved from request data (path/query/JWT claim), stored in TenantContext (ThreadLocal), consumed by CurrentTenantIdentifierResolverImpl, and applied in SchemaMultiTenantConnectionProvider using `connection.setSchema()`. To prevent connection-pool leakage, schema is reset to `public` on release and tenant context is cleared in a `finally` block. I also used a hand-built EntityManagerFactory configuration for compatibility with this Boot 4 and Hibernate 7.2 setup.',
     technologies: [
       'Java 21',
-      'Spring Boot 4',
       'Spring Modulith',
-      'Hibernate 7.2',
       'PostgreSQL',
-      'Spring Security',
-      'JWT',
       'Google OAuth2',
     ],
     isPrivate: true,
@@ -147,7 +142,7 @@ try {
       'A professional healthcare website for a Speech Language Pathologist and Audiologist clinic in Mumbai.',
     longDescription:
       "Built a complete clinic website for Shivani Batra's Speech and Swallowing Clinic to improve online presence and patient outreach. The website highlights therapy services, patient trust elements, contact details, and appointment booking pathways in a clean, mobile-friendly interface optimized for accessibility and clarity.",
-    technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     github: 'https://github.com/NareshLokhande/shivani-batra-clinic.git',
     demo: 'https://shivani-batra-clinic.vercel.app/',
     isPrivate: true,

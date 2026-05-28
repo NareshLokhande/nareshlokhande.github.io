@@ -69,11 +69,11 @@ function NavAnchor({
       href={href}
       onClick={onClick}
       className={cn(
-        'group relative inline-flex items-center px-3 py-2 text-sm font-medium transition-colors',
+        'group/navlink relative inline-flex items-center px-3 py-2 text-sm font-medium transition-colors',
         isActive
           ? 'text-foreground'
           : 'text-muted-foreground hover:text-foreground',
-        className
+        className,
       )}
     >
       {children}
@@ -83,7 +83,7 @@ function NavAnchor({
           'absolute bottom-0 left-3 right-3 h-0.5 origin-center rounded-full bg-primary transition-transform duration-300',
           isActive
             ? 'scale-x-100'
-            : 'scale-x-0 group-hover:scale-x-100 group-focus-visible:scale-x-100'
+            : 'scale-x-0 group-hover/navlink:scale-x-100 group-focus-visible/navlink:scale-x-100',
         )}
       />
     </Link>
@@ -140,14 +140,14 @@ export function Navbar() {
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   const exploreIsActive = exploreNavItems.some(
-    (item) => item.id === activeSection
+    (item) => item.id === activeSection,
   );
 
   return (
     <nav
       className={cn(
         'fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur transition-shadow duration-300 supports-backdrop-filter:bg-background/60',
-        scrolled && 'shadow-md shadow-black/5 dark:shadow-black/20'
+        scrolled && 'shadow-md shadow-black/5 dark:shadow-black/20',
       )}
     >
       <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
@@ -182,7 +182,7 @@ export function Navbar() {
                     'h-auto bg-transparent px-3 py-2 text-sm font-medium shadow-none transition-colors hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent',
                     exploreIsActive
                       ? 'text-foreground'
-                      : 'text-muted-foreground hover:text-foreground'
+                      : 'text-muted-foreground hover:text-foreground',
                   )}
                 >
                   Explore
@@ -196,7 +196,7 @@ export function Navbar() {
                             href={item.href}
                             className={cn(
                               'block rounded-md p-3 transition-colors hover:bg-accent',
-                              activeSection === item.id && 'bg-accent/60'
+                              activeSection === item.id && 'bg-accent/60',
                             )}
                           >
                             <div className="text-sm font-medium leading-none">
@@ -287,8 +287,8 @@ export function Navbar() {
         className={cn(
           'overflow-hidden border-t border-border/40 bg-background transition-[max-height,opacity] duration-300 ease-out md:hidden',
           mobileMenuOpen
-            ? 'max-h-[28rem] opacity-100'
-            : 'max-h-0 border-t-transparent opacity-0'
+            ? 'max-h-112 opacity-100'
+            : 'max-h-0 border-t-transparent opacity-0',
         )}
       >
         <div className="space-y-4 px-4 py-4">
@@ -306,7 +306,7 @@ export function Navbar() {
                     'rounded-md px-3 py-2.5 text-sm font-medium transition-colors',
                     activeSection === item.id
                       ? 'bg-accent text-foreground'
-                      : 'text-muted-foreground hover:bg-accent/50 hover:text-foreground'
+                      : 'text-muted-foreground hover:bg-accent/50 hover:text-foreground',
                   )}
                 >
                   {item.name}
@@ -329,7 +329,7 @@ export function Navbar() {
                     'rounded-md px-3 py-2.5 transition-colors',
                     activeSection === item.id
                       ? 'bg-accent text-foreground'
-                      : 'text-muted-foreground hover:bg-accent/50 hover:text-foreground'
+                      : 'text-muted-foreground hover:bg-accent/50 hover:text-foreground',
                   )}
                 >
                   <span className="text-sm font-medium">{item.name}</span>
