@@ -140,4 +140,49 @@ try {
       },
     ],
   },
+  {
+    slug: 'shivani-batra-clinic',
+    title: "Shivani Batra's Speech and Swallowing Clinic",
+    description:
+      'A professional healthcare website for a Speech Language Pathologist and Audiologist clinic in Mumbai.',
+    longDescription:
+      "Built a complete clinic website for Shivani Batra's Speech and Swallowing Clinic to improve online presence and patient outreach. The website highlights therapy services, patient trust elements, contact details, and appointment booking pathways in a clean, mobile-friendly interface optimized for accessibility and clarity.",
+    technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
+    github: 'https://github.com/NareshLokhande/shivani-batra-clinic.git',
+    demo: 'https://shivani-batra-clinic.vercel.app/',
+    isPrivate: true,
+    organization: 'Shivani Batra Clinic',
+    features: [
+      'Service pages for speech, voice, and swallowing therapy',
+      'Patient-focused layout with testimonial and trust-building sections',
+      'Contact and appointment booking pathways',
+      'Responsive design for mobile, tablet, and desktop',
+      'Fast, SEO-friendly Next.js implementation',
+    ],
+    codeSnippets: [
+      {
+        title: 'Service Card Component (concept)',
+        language: 'typescript',
+        code: `interface Service {
+  title: string;
+  description: string;
+  features: string[];
+}
+
+export function ServiceCard({ service }: { service: Service }) {
+  return (
+    <article>
+      <h3>{service.title}</h3>
+      <p>{service.description}</p>
+      <ul>
+        {service.features.map((feature) => (
+          <li key={feature}>{feature}</li>
+        ))}
+      </ul>
+    </article>
+  );
+}`,
+      },
+    ],
+  },
 ];
