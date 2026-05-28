@@ -47,18 +47,16 @@ export function getProjectOrganization(project: Project) {
 export const projects: Project[] = [
   {
     slug: '24tutors',
-    title: 'Scheduling and Workflow System',
+    title: '24Tutors - Tutoring Platform Backend',
     description:
-      'Role-based class scheduling and rescheduling system with recurring events, attendance logs, and per-session history designed for data consistency.',
+      'Built core backend workflows for 24Tutors, including scheduling consistency, OTP-based verification, and secure API-driven operations.',
     longDescription:
-      'Backend system developed at BITCOLLAGE to handle class scheduling operations across admin, teacher, and student roles. I implemented recurring schedules, conflict-aware rescheduling, attendance/event history tracking, and RBAC-aware control flows. The system was designed to preserve reporting correctness through teacher reassignments and timeline changes while using SQL Server and Liquibase for consistent schema versioning.',
+      'At BITCOLLAGE, I worked on backend systems for 24Tutors with a focus on reliability and security. I implemented scheduling and rescheduling flows with session-level history so teacher reassignments did not break historical attendance/reporting data. I also built OTP-based account verification using JavaMailSender and verification endpoints that activate users only after successful validation. The system used Java, Spring Boot, SQL Server, and Liquibase to keep APIs maintainable and schema changes consistent across environments.',
     technologies: [
-      'Next.js',
-      'React',
-      'TypeScript',
+      'Java',
       'Spring Boot',
-      'Microservices',
-      'MSSQL',
+      'REST APIs',
+      'SQL Server',
       'Azure',
       'Liquibase',
     ],
@@ -66,147 +64,79 @@ export const projects: Project[] = [
     isPrivate: true,
     organizationKey: 'BITCOLLAGE',
     features: [
-      'Role-based scheduling and rescheduling workflows for admin, teacher, and student actors',
-      'Recurring event support with conflict checks and operational guardrails',
-      'Attendance logs and per-session history for consistent reporting',
-      'Data model designed to stay accurate through teacher reassignment scenarios',
-      'OTP and JWT-backed authentication with audit logging and soft-delete support',
-      'SQL Server persistence with Liquibase migrations across environments',
+      'Scheduling story: solved teacher reassignment issues that could break historical reports',
+      'Preserved per-session history snapshots to keep past attendance and reports accurate',
+      'Implemented role-based scheduling and rescheduling flows for admin, teacher, and student actors',
+      'OTP auth story: generated and emailed OTPs, then activated accounts only after verification (`isVerified=true`)',
+      'Integrated verification flow with Spring Security/JWT-based authentication',
+      'Used SQL Server with Liquibase for controlled, environment-safe schema evolution',
     ],
     codeSnippets: [
       {
-        title: 'Scheduling Service Example',
-        language: 'typescript',
-        code: `// Example: Class scheduling logic
-interface ScheduleRequest {
-  batchId: string;
-  tutorId: string;
-  startTime: Date;
-  endTime: Date;
-  recurring: boolean;
-}
-
-export async function createSchedule(request: ScheduleRequest) {
-  // Validate scheduling conflicts
-  const conflicts = await checkConflicts(request);
-  if (conflicts.length > 0) {
-    throw new Error('Scheduling conflict detected');
+        title: 'Reassignment-safe Session History (concept)',
+        language: 'java',
+        code: `// Preserve historical session ownership instead of mutating past records.
+public void reassignTeacher(UUID batchId, UUID fromTeacher, UUID toTeacher) {
+  scheduleRepository.updateFutureSessions(batchId, fromTeacher, toTeacher);
+  // Past sessions keep their historical teacher/session metadata.
+  auditService.log("TEACHER_REASSIGNED", batchId, fromTeacher, toTeacher);
+}`,
+      },
+      {
+        title: 'OTP Verification Path (concept)',
+        language: 'java',
+        code: `public VerificationResult verifyOtp(String email, String otp) {
+  User user = userRepository.findByEmail(email).orElseThrow();
+  if (!otpService.matches(user, otp)) {
+    throw new BadCredentialsException("Invalid OTP");
   }
-  
-  // Create schedule with audit logging
-  return await scheduleService.create({
-    ...request,
-    createdAt: new Date(),
-    createdBy: getCurrentUserId(),
-  });
+  user.setVerified(true); // isVerified=true
+  userRepository.save(user);
+  return VerificationResult.verified(user.getId());
 }`,
       },
     ],
   },
   {
-    slug: 'edukacy',
-    title: 'Edukacy – Education Management & Assessment Platform',
+    slug: 'carbon-accounting-multi-tenant',
+    title: 'Carbon Accounting SaaS - Multi-tenant Architecture Story',
     description:
-      'A comprehensive education management platform with multi-step signup flows, question bank management, paper creation workflows, and content upload capabilities.',
+      'Designed and developed a schema-per-tenant SaaS platform using custom Hibernate multi-tenancy and secure tenant context handling.',
     longDescription:
-      'Professional project developed as a client project under BITCOLLAGE. An education management and assessment platform designed for scalable architecture. I designed multi-step signup flows with role-based branching, implemented question bank, paper creation workflows, and evaluation modules. Worked on content upload & rendering with ZIP-based learning packages, built admin dashboards for boards, grades, subjects, and topics. Planned for scalable architecture and future AI integration, and handled database schema evolution and environment consistency.',
+      'I designed and developed a multi-tenant carbon accounting platform across backend, frontend, and database layers. Tenant context is resolved from request data (path/query/JWT claim), stored in TenantContext (ThreadLocal), consumed by CurrentTenantIdentifierResolverImpl, and applied in SchemaMultiTenantConnectionProvider using `connection.setSchema()`. To prevent connection-pool leakage, schema is reset to `public` on release and tenant context is cleared in a `finally` block. I also used a hand-built EntityManagerFactory configuration for compatibility with this Boot 4 and Hibernate 7.2 setup.',
     technologies: [
-      'Next.js',
-      'App Router',
-      'TypeScript',
-      'Spring Boot',
-      'SQL Server',
-      'Azure',
-      'Blob Storage',
+      'Java 21',
+      'Spring Boot 4',
+      'Spring Modulith',
+      'Hibernate 7.2',
+      'PostgreSQL',
+      'Spring Security',
+      'JWT',
+      'Google OAuth2',
     ],
-    demo: 'https://edukacy.azurewebsites.net/',
     isPrivate: true,
     organizationKey: 'BITCOLLAGE',
     features: [
-      'Multi-step signup flows with role-based branching for students, teachers, and admins',
-      'Question bank and paper creation workflows scaled across multiple boards, grades, and subjects',
-      'Automated evaluation modules with reusable scoring logic',
-      'ZIP-based learning package upload & rendering, served from Azure Blob Storage',
-      'Admin dashboards covering boards, grades, subjects, and topics hierarchies',
-      'Architected with stateless services for horizontal scaling',
-      'Versioned schema evolution with rollback-safe migrations',
-      'Designed for forward-compatible AI/ML integration hooks',
+      'TenantContextFilter -> TenantContext(ThreadLocal) -> resolver -> connection.setSchema() flow',
+      'Connection safety: schema reset to `public` on release + ThreadLocal clear() in finally',
+      'Modular-monolith architecture with clear module boundaries',
+      'Event-driven tenant onboarding and provisioning workflows',
+      'Role-based authorization with Spring Security',
+      'Implemented and documented tenant-isolation improvements',
     ],
     codeSnippets: [
       {
-        title: 'Multi-Step Signup Flow',
-        language: 'typescript',
-        code: `// Example: Role-based signup flow
-type UserRole = 'student' | 'teacher' | 'admin';
-
-interface SignupData {
-  email: string;
-  role: UserRole;
-  // ... other fields
-}
-
-export async function handleSignup(data: SignupData) {
-  // Role-based branching
-  switch (data.role) {
-    case 'student':
-      return await createStudentAccount(data);
-    case 'teacher':
-      return await createTeacherAccount(data);
-    case 'admin':
-      return await createAdminAccount(data);
-  }
+        title: 'Tenant Schema Resolution (concept)',
+        language: 'java',
+        code: `String tenantId = tenantContext.getCurrentTenant();
+Connection connection = dataSource.getConnection();
+connection.setSchema(schemaResolver.resolve(tenantId));
+try {
+  return connection;
+} finally {
+  // prevent pool leakage
+  connection.setSchema("public");
 }`,
-      },
-    ],
-  },
-  {
-    slug: 'shivani-batra-clinic',
-    title: "Shivani Batra's Speech & Swallowing Clinic",
-    description:
-      'A professional healthcare website for a Speech Language Pathologist and Audiologist clinic in Mumbai, featuring service information, appointment booking, and patient testimonials.',
-    longDescription:
-      "A comprehensive healthcare website built for Shivani Batra's Speech & Swallowing Clinic, a licensed Speech Language Pathologist and Audiologist practice in Mumbai. The website showcases the clinic's services including Speech Therapy, Voice Therapy, and Swallowing Therapy. Features include service descriptions, patient testimonials, contact information, appointment booking functionality, and a professional design that instills trust and confidence in potential patients.",
-    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'React'],
-    github: 'https://github.com/NareshLokhande/shivani-batra-clinic.git',
-    demo: 'https://shivani-batra-clinic.vercel.app/',
-    isPrivate: true,
-    organization: 'Shivani Batra Clinic',
-    features: [
-      'Service showcase (Speech, Voice, and Swallowing Therapy)',
-      'Patient testimonials and Google reviews integration',
-      'Appointment booking functionality',
-      'Contact information and clinic location',
-      'Responsive design for all devices',
-      'Professional healthcare-focused UI/UX',
-    ],
-    codeSnippets: [
-      {
-        title: 'Service Component',
-        language: 'typescript',
-        code: `// Service card component example
-      interface Service {
-        title: string;
-        description: string;
-        features: string[];
-      }
-
-    export function ServiceCard({ service }: { service: Service }) {
-      return (
-        <Card>
-          <CardHeader>
-            <CardTitle>{service.title}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>{service.description}</p>
-            <ul>
-              {service.features.map((feature) => (
-                <li key={feature}>{feature}</li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-      );
-    }`,
       },
     ],
   },

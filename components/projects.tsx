@@ -259,7 +259,7 @@ export function Projects() {
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
             A collection of professional projects and personal work showcasing
-            my technical skills and experience in full-stack development.
+            my technical skills and experience in backend engineering.
           </p>
         </ScrollReveal>
 
