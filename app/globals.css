@@ -72,7 +72,7 @@
   --signal-violet-fg: #ffffff;
   --signal-violet-ink: #5b3cc4;
   --signal-green: #178A5B;
-  --signal-green-fg: #ffffff;
+  --signal-green-fg: #000000; /* white on this green is only 4.35:1 */
   --signal-green-ink: #11704a;
   --signal-red: #c2410c;
   --signal-red-fg: #ffffff;
