@@ -76,7 +76,7 @@ Shared rules:
 
 ## Visual system
 
-- **Type:** Archivo for everything (headlines 800 with slightly tight tracking, body 400, UI 600) via `next/font`. IBM Plex Mono only for identifiers and codes inside diagrams. IBM Plex Serif and Plex Sans are removed.
+- **Type:** Archivo for everything (headlines 800 with slightly tight tracking, body 400, UI 600) via `next/font`. IBM Plex Mono only for identifiers and codes inside diagrams. IBM Plex Serif and Plex Sans are removed. Exception: the generated `icon.svg`/`apple-icon.png`/`favicon.ico`/`og-image.png` (rendered by a one-off `sharp` script, not by `next/font`) use system sans/mono instead — see the "Exception" note under **Assets** in `CLAUDE.md`.
 - **Base:** white paper, ink `#16181D`, muted text with at least 4.5:1 contrast. Primary buttons are solid ink; colour is reserved for meaning.
 - **Semantic colours:** amber `#D98A00` (acme), violet `#6D4AE0` (globex, Asha), green `#178A5B` (initech, Ben, Verified), red `#C2410C` (errors, Locked). Text on or in these colours must meet 4.5:1; use darker text tones where needed.
 - **Dot grid:** only on explainer canvases (including the hero's).
