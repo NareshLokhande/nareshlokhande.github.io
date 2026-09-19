@@ -1,5 +1,4 @@
 User-Agent: *
 Allow: /
 
-Host: https://nareshlokhande.github.io
 Sitemap: https://nareshlokhande.github.io/sitemap.xml
