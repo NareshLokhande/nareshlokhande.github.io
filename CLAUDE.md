@@ -1,0 +1,41 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Commands
+
+```bash
+npm run dev      # dev server at http://localhost:3000
+npm run build    # static export to out/ (also the only type-check step)
+npm run lint     # ESLint (next core-web-vitals + typescript configs)
+npm run preview  # serve out/ locally; next start does not work with output: export
+npm test         # explainer state-model tests via node --test (no test framework)
+```
+
+Verify changes with `npm test`, `npm run lint` and `npm run build`. Node version is pinned in `.nvmrc`.
+
+## Deployment
+
+Every push to `main` triggers `.github/workflows/deploy.yml`, which lints, builds, and publishes `out/` to the `gh-pages` branch. Pushing to `main` means deploying to the live site, https://nareshlokhande.github.io. Do not commit or push unless asked.
+
+## Architecture
+
+Personal portfolio: Next.js 16 App Router, React 19, Tailwind v4, and a few shadcn/ui primitives.
+
+**Static export only.** `next.config.ts` sets `output: 'export'`, `trailingSlash: true`, and `images.unoptimized`. Nothing runs on a server: no API routes, server actions, middleware, or ISR. Dynamic routes list every param in `generateStaticParams`. Metadata routes (`app/sitemap.ts`, `app/robots.ts`) export `dynamic = 'force-static'`. The contact form (`components/contact-form.tsx`) posts from the browser to Web3Forms using `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` (`.env.local` locally, a GitHub Actions secret in CI); without the key it shows a message with an email link.
+
+**Trailing slashes.** Because `trailingSlash` is on, every page is written as `out/<path>/index.html` and every internal URL ends with `/`: section links are `/#<id>`, sitemap entries end with `/`. Keep new links in that form; a link without the slash costs a redirect.
+
+**Content lives in `lib/` and a few section components.**
+- **Resume level only.** The site must not name clients (past case studies named them) or show internals of employer or client systems: no internal class names, request flows, or code derived from employer code. Claims about the owner match the resume. Don't add unsourced specifics; ask the owner.
+- `components/explainers/`: one `*-model.ts` per explainer (pure reducer and captions; imports nothing and uses only erasable TypeScript so `node --test` runs it directly), `models.test.ts`, one client component per explainer, `shell.tsx` (shared frame with a live caption) and `tones.ts` (signal colour class sets). Diagrams use invented names only (acme, globex, initech; Asha, Ben).
+- `lib/constants.ts`: `SITE_*`, links, `EMAIL_URL`, `LOCATION`, `TIMEZONE`, `EMPLOYER`, `SECTIONS` (drives navbar and footer; add or rename a section here and in `app/page.tsx`).
+- `components/impact.tsx`, `components/experience.tsx`, `components/skills.tsx`: content inline, from the resume.
+
+**Layout.** `components/section.tsx` (`<Section id title intro?>`) is the two-column block for Experience, Skills and Contact. The hero and Patterns section lay out their explainers directly. Brand icons are in `components/icons.tsx`.
+
+**Server first.** Route files and nearly every component are server components. `'use client'` is limited to `components/navbar.tsx` (scroll spy, mobile menu), `components/theme-toggle.tsx`, `components/contact-form.tsx`, `components/copy-button.tsx`, and the three explainers. Keep client code in the smallest component that needs it.
+
+**UI primitives.** `components/ui/` contains only `button`, `badge`, `input`, `label`, `textarea`, `spinner` (shadcn new-york style, config in `components.json`). Merge classes with `cn()` from `lib/utils.ts`. Theme tokens are CSS variables in `app/globals.css` (`:root` light, `.dark` dark, `@theme inline`). The theme is white paper and ink, with colour only for meaning through `signal-{amber,violet,green,red}` tokens (`-fg` for text on the fill, `-ink` for text on paper), a `dot-grid` utility for explainer canvases, Archivo for text and IBM Plex Mono for identifiers. Tailwind v4 has no `tailwind.config` file. The path alias `@/*` maps to the repo root.
+
+**Assets.** Icons are Next.js metadata files under `app/`: `icon.svg`, `apple-icon.png`, `favicon.ico`. The Open Graph image is `public/og-image.png` (1200x630), referenced from `app/layout.tsx`. These four were rendered by a one-off `sharp` script (not committed) with system sans and mono fonts, because sharp's SVG renderer can't load the Archivo and Plex webfonts. The resume PDF is in `public/`.
