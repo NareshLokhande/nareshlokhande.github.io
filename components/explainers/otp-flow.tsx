@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { useReducer, useState, type FormEvent } from 'react';
+import { useEffect, useReducer, useRef, useState, type FormEvent } from 'react';
 import {
   initialOtp,
   MAX_ATTEMPTS,
@@ -53,6 +53,13 @@ export function OtpFlow() {
   const [state, dispatch] = useReducer(otpReducer, initialOtp);
   const [guess, setGuess] = useState('');
   const open = state.status === 'sent';
+  const resendRef = useRef<HTMLButtonElement>(null);
+
+  // Verifying, locking or expiring disables the control that has focus, and Chrome then
+  // swallows Tab on a disabled input. Hand focus to Resend, the only way on from here.
+  useEffect(() => {
+    if (!open && document.activeElement?.matches(':disabled')) resendRef.current?.focus();
+  }, [open]);
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -95,6 +102,7 @@ export function OtpFlow() {
             Skip ahead 5 minutes
           </Button>
           <Button
+            ref={resendRef}
             type="button"
             size="sm"
             variant="ghost"
