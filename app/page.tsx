@@ -1,9 +1,9 @@
 import { Contact } from '@/components/contact';
 import { Experience } from '@/components/experience';
 import { Hero } from '@/components/hero';
-import { HowIWork } from '@/components/how-i-work';
+import { Impact } from '@/components/impact';
+import { Patterns } from '@/components/patterns';
 import { Skills } from '@/components/skills';
-import { Work } from '@/components/work';
 import {
   EMAIL_URL,
   EMPLOYER,
@@ -57,8 +57,8 @@ export default function Home() {
       />
       <main id="main">
         <Hero />
-        <Work />
-        <HowIWork />
+        <Impact />
+        <Patterns />
         <Experience />
         <Skills />
         <Contact />

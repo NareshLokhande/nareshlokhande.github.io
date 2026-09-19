@@ -12,7 +12,7 @@ export default function NotFound() {
     >
       <h1 className="text-3xl sm:text-4xl">Page not found</h1>
       <p className="mt-4 max-w-prose text-muted-foreground">
-        That address does not exist here. The work list is on the home page.
+        That address does not exist here. Everything is on the home page.
       </p>
       <Button asChild className="mt-6">
         <Link href="/">Go to the home page</Link>

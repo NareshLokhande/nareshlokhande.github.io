@@ -1,21 +1,9 @@
-import { Flow } from '@/components/flow';
+import { TenantRouting } from '@/components/explainers/tenant-routing';
 import { GitHubIcon, LinkedInIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import {
-  EMAIL_URL,
-  EMPLOYER,
-  GITHUB_URL,
-  LINKEDIN_URL,
-  LOCATION,
-  RESUME_URL,
-} from '@/lib/constants';
-import { projects } from '@/lib/projects';
+import { EMAIL_URL, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from '@/lib/constants';
 import { Download, Mail } from 'lucide-react';
 import Link from 'next/link';
-
-const found = projects.find((p) => p.slug === 'carbon-accounting-multi-tenant');
-if (!found?.flow) throw new Error('Hero expects the carbon accounting project with a flow');
-const flagship = { slug: found.slug, flow: found.flow };
 
 const links = [
   { href: GITHUB_URL, label: 'GitHub', Icon: GitHubIcon },
@@ -25,69 +13,52 @@ const links = [
 
 export function Hero() {
   return (
-    <section id="home" className="pt-28 pb-14 sm:pt-36 sm:pb-20">
-      <div className="mx-auto grid max-w-6xl gap-14 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-end lg:gap-16 lg:px-8">
+    <section id="home" className="pt-24 pb-14 sm:pt-32 sm:pb-20">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:gap-14 lg:px-8">
         <div>
-          <p className="text-base text-muted-foreground">
-            Software Engineer at {EMPLOYER.short}, {LOCATION}
-          </p>
-          <h1 className="mt-4 text-4xl leading-[1.08] sm:text-5xl lg:text-[3.25rem]">
-            I build the backend that keeps schedules, tenants and audit trails
-            consistent.
+          <p className="text-muted-foreground">Backend engineer, Mumbai</p>
+          <h1 className="mt-3 text-4xl leading-[1.04] sm:text-5xl lg:text-[3.5rem]">
+            I build backends that keep tenant data isolated, schedules consistent and sign-ups
+            secure.
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Java and Spring Boot services on SQL Server, PostgreSQL and Azure:
-            role-based scheduling for a tutoring platform, schema-per-tenant
-            isolation for a carbon-accounting SaaS, and OTP and JWT flows that
-            hold up in production.
+          <p className="mt-5 text-lg text-muted-foreground">
+            Java, Spring Boot, SQL Server, PostgreSQL, Azure.
           </p>
-
-          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-            <div className="flex flex-wrap gap-3">
-              <Button asChild size="lg">
-                <Link href="/#work">See the work</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <a href={RESUME_URL} download>
-                  <Download />
-                  Resume (PDF)
-                </a>
-              </Button>
-            </div>
-            <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-              {links.map(({ href, label, Icon }) => (
-                <li key={label}>
-                  <a
-                    href={href}
-                    {...(href.startsWith('http')
-                      ? { target: '_blank', rel: 'noopener noreferrer' }
-                      : {})}
-                    className="inline-flex items-center gap-1.5 text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-                  >
-                    <Icon className="size-4" />
-                    {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button asChild size="lg">
+              <Link href="/#patterns">See how it works</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <a href={RESUME_URL} download>
+                <Download />
+                Resume (PDF)
+              </a>
+            </Button>
           </div>
+          <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+            {links.map(({ href, label, Icon }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  {...(href.startsWith('http')
+                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    : {})}
+                  className="inline-flex items-center gap-1.5 text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                >
+                  <Icon className="size-4" />
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
-
-        <Flow
-          steps={flagship.flow}
-          caption={
-            <>
-              How one request reaches the right tenant schema in the carbon
-              accounting platform.{' '}
-              <Link
-                href={`/projects/${flagship.slug}/`}
-                className="text-primary underline underline-offset-4 hover:text-foreground"
-              >
-                Read how it works
-              </Link>
-            </>
-          }
-        />
+        <div>
+          <TenantRouting />
+          <p className="mt-2 text-xs text-muted-foreground">
+            How schema-per-tenant routing works, with made-up tenants. The general pattern, not
+            a client&apos;s system.
+          </p>
+        </div>
       </div>
     </section>
   );

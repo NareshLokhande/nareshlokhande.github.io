@@ -8,7 +8,6 @@ const highlights = [
   'Designed a question bank service with subject, topic and subtopic mapping and three exam-creation flows (manual, quick, format-based), plus a content system for ZIP-based learning packages.',
   'Designed and developed a schema-per-tenant carbon accounting (ESG) platform: custom Hibernate connection provider and tenant resolver, Spring Security, JWT and Google OAuth2, event-driven onboarding. Java 21, Spring Boot, PostgreSQL.',
   'Set up CI/CD with GitHub Actions to Azure App Service, with Liquibase managing schema versions across environments.',
-  'Delivered an educational platform supporting 1000+ active users.',
 ];
 
 const education = [

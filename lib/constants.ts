@@ -22,8 +22,7 @@ export const EMPLOYER = {
 
 /** Home-page sections in page order. Navbar and footer both render this list. */
 export const SECTIONS = [
-  { id: 'work', label: 'Work' },
-  { id: 'how-i-work', label: 'How I work' },
+  { id: 'patterns', label: 'Patterns' },
   { id: 'experience', label: 'Experience' },
   { id: 'skills', label: 'Skills' },
   { id: 'contact', label: 'Contact' },
