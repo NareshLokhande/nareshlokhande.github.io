@@ -8,27 +8,20 @@ import {
   TWITTER_HANDLE,
 } from '@/lib/constants';
 import type { Metadata } from 'next';
-import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Serif } from 'next/font/google';
+import { Archivo, IBM_Plex_Mono } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import Script from 'next/script';
 import './globals.css';
 
-const plexSans = IBM_Plex_Sans({
-  variable: '--font-plex-sans',
+const archivo = Archivo({
+  variable: '--font-archivo',
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
-});
-
-const plexSerif = IBM_Plex_Serif({
-  variable: '--font-plex-serif',
-  subsets: ['latin'],
-  weight: ['600'],
 });
 
 const plexMono = IBM_Plex_Mono({
   variable: '--font-plex-mono',
   subsets: ['latin'],
-  weight: ['400'],
+  weight: ['400', '500'],
 });
 
 export const metadata: Metadata = {
@@ -73,7 +66,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${plexSans.variable} ${plexSerif.variable} ${plexMono.variable}`}
+      className={`${archivo.variable} ${plexMono.variable}`}
     >
       <head>
         {/* Plausible analytics: cookie-free. Remove if the site is not registered at plausible.io. */}
