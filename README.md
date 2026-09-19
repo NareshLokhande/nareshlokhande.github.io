@@ -6,8 +6,8 @@ Live site: https://nareshlokhande.github.io
 
 ## What is on the site
 
-- Home page: hero, Work, How I work, Experience, Skills, Contact
-- One case-study page per project at `/projects/<slug>/`
+- Home page: a hero with a live schema-per-tenant routing explainer, impact numbers, two more interactive explainers (schedule changes that keep history, OTP verification), experience, skills and contact
+- The explainers show general backend patterns with made-up data; no client names or client systems appear on the site
 - Light and dark theme (`next-themes`)
 - Contact form posting to [Web3Forms](https://web3forms.com) from the browser
 - Resume PDF, sitemap, robots, Open Graph image
@@ -20,14 +20,12 @@ Next.js 16, React 19, TypeScript, Tailwind CSS v4, a handful of shadcn/ui primit
 
 | Content | File |
 |---------|------|
-| Projects and case studies | `lib/projects.ts` |
+| Explainers (state models, tests, components) | `components/explainers/` |
+| Impact numbers | `components/impact.tsx` |
 | Name, links, employer, location, section list | `lib/constants.ts` |
 | Experience and education | `components/experience.tsx` |
 | Skills | `components/skills.tsx` |
-| How I work | `components/how-i-work.tsx` |
 | Resume PDF | `public/Naresh_Lokhande_Backend_SDE.pdf` |
-
-Adding an entry to `lib/projects.ts` gives it a page, metadata and a sitemap entry.
 
 ## Scripts
 
@@ -36,6 +34,7 @@ npm run dev      # dev server at http://localhost:3000
 npm run build    # static export to out/
 npm run lint     # ESLint
 npm run preview  # serve out/ locally (run build first)
+npm test         # explainer state-model tests (node --test)
 ```
 
 Node version is in `.nvmrc`.

@@ -48,7 +48,7 @@ Shared rules:
 
 - The initial state is server-rendered, so the diagram is visible without JavaScript.
 - Controls are `<button>`s with `aria-pressed` where they toggle. One caption line under each diagram is an `aria-live="polite"` region describing what just happened.
-- The SVG has `role="img"` and an `aria-label` summarising the current state.
+- Diagrams are built in HTML and CSS, not SVG, so they reflow on narrow screens and their text is read directly by screen readers; decorative marks are `aria-hidden`.
 - Nothing animates by itself except one short run on page load (explainer 1 only). With `prefers-reduced-motion: reduce`, state changes are instant and the load run is skipped.
 - Every colour is paired with a label or shape; colour is never the only signal.
 - On narrow screens each diagram reflows vertically instead of shrinking.
@@ -79,7 +79,7 @@ Shared rules:
 - **Type:** Archivo for everything (headlines 800 with slightly tight tracking, body 400, UI 600) via `next/font`. IBM Plex Mono only for identifiers and codes inside diagrams. IBM Plex Serif and Plex Sans are removed.
 - **Base:** white paper, ink `#16181D`, muted text with at least 4.5:1 contrast. Primary buttons are solid ink; colour is reserved for meaning.
 - **Semantic colours:** amber `#D98A00` (acme), violet `#6D4AE0` (globex, Asha), green `#178A5B` (initech, Ben, Verified), red `#C2410C` (errors, Locked). Text on or in these colours must meet 4.5:1; use darker text tones where needed.
-- **Dot grid:** only behind the hero band and explainer canvases.
+- **Dot grid:** only on explainer canvases (including the hero's).
 - **Dark mode:** deep slate background `#15181E`, lighter tones of the same four colours, contrast checked.
 - **Shape:** 6px radius on diagram nodes and buttons, 1.5px strokes, hairline section dividers.
 
