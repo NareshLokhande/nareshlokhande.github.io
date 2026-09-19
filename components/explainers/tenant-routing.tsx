@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { useEffect, useRef, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import { ExplainerShell } from './shell';
 import {
   initialRouting,
@@ -52,16 +52,12 @@ export function TenantRouting() {
   const [state, dispatch] = useReducer(routingReducer, initialRouting);
   const tone = TONES[TENANT_TONE[state.tenant]];
   const released = state.stage === 'released';
-  const hasInteracted = useRef(false);
 
-  // One demo request on load, skipped for visitors who prefer reduced motion.
+  // One demo request on load, skipped for visitors who prefer reduced motion. The reducer
+  // drops it once the visitor has sent a request, so it never overrides a click.
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const timer = setTimeout(() => {
-      if (!hasInteracted.current) {
-        dispatch({ type: 'send', tenant: 'acme' });
-      }
-    }, 600);
+    const timer = setTimeout(() => dispatch({ type: 'demo' }), 600);
     return () => clearTimeout(timer);
   }, []);
 
@@ -86,10 +82,7 @@ export function TenantRouting() {
                 key={tenant}
                 type="button"
                 aria-pressed={pressed}
-                onClick={() => {
-                  hasInteracted.current = true;
-                  dispatch({ type: 'send', tenant });
-                }}
+                onClick={() => dispatch({ type: 'send', tenant })}
                 className={cn(
                   'rounded-md border-[1.5px] px-2.5 py-1 font-mono text-sm motion-safe:transition-colors',
                   pressed ? t.fill : cn('bg-card', t.border, t.text),

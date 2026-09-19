@@ -27,7 +27,11 @@ export interface RoutingState {
   result: Tenant | null;
 }
 
-export type RoutingAction = { type: 'send'; tenant: Tenant } | { type: 'advance' };
+export type RoutingAction =
+  | { type: 'send'; tenant: Tenant }
+  | { type: 'advance' }
+  /** The on-load demo: sends acme, but never over a request the visitor already sent. */
+  | { type: 'demo' };
 
 export const initialRouting: RoutingState = {
   stage: 'idle',
@@ -38,6 +42,9 @@ export const initialRouting: RoutingState = {
 };
 
 export function routingReducer(state: RoutingState, action: RoutingAction): RoutingState {
+  if (action.type === 'demo') {
+    return state.stage === 'idle' ? routingReducer(state, { type: 'send', tenant: 'acme' }) : state;
+  }
   if (action.type === 'send') {
     return {
       stage: 'request',

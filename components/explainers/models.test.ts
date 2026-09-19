@@ -66,6 +66,17 @@ test('routing: a new request mid-run starts over with a clean context', () => {
   });
 });
 
+test('routing: the load demo sends acme only while nothing has been sent', () => {
+  assert.deepEqual(
+    routingReducer(initialRouting, { type: 'demo' }),
+    routingReducer(initialRouting, { type: 'send', tenant: 'acme' }),
+  );
+  const clicked = routingReducer(initialRouting, { type: 'send', tenant: 'globex' });
+  assert.equal(routingReducer(clicked, { type: 'demo' }), clicked);
+  const released = runUntil('initech', 'released');
+  assert.equal(routingReducer(released, { type: 'demo' }), released);
+});
+
 test('schedule: a naive update rewrites past sessions and corrupts the report', () => {
   const state = scheduleReducer(initialSchedule('naive'), { type: 'reassign' });
   assert.ok(state.sessions.every((s) => s.teacher === 'Ben'));
