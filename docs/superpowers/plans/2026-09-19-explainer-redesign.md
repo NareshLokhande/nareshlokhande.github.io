@@ -16,7 +16,7 @@
 - No client names anywhere in the site (24Tutors, Edukacy, the clinic, any EdTech client). Resume-level claims only.
 - Explainer diagrams use invented names only: tenants `acme`, `globex`, `initech`; teachers `Asha`, `Ben`.
 - Colour is never the only signal: every coloured element also carries a text label.
-- Colours (light): amber `#D98A00` (acme, Expired), violet `#6D4AE0` (globex, Asha), green `#178A5B` (initech, Ben, Verified), red `#C2410C` (errors, Locked). Ink `#16181D`. Use them only through the `signal-*` theme tokens.
+- Colours (light): amber `#D98A00` (acme, Expired), violet `#6D4AE0` (globex, Asha), green `#137A50` (initech, Ben, Verified), red `#C2410C` (errors, Locked). Ink `#16181D`. Use them only through the `signal-*` theme tokens.
 - Fonts: Archivo (all text), IBM Plex Mono (identifiers and codes only).
 - Motion only inside `motion-safe:` utilities. The only unprompted motion is the tenant-routing demo run on load, skipped when `prefers-reduced-motion: reduce`.
 - Internal links end in `/` or are `/#id` (`trailingSlash: true`).
@@ -594,7 +594,7 @@ git commit -m "Add explainer state models with tests"
   --signal-violet: #6d4ae0;
   --signal-violet-fg: #ffffff;
   --signal-violet-ink: #5b3cc4;
-  --signal-green: #178A5B;
+  --signal-green: #137A50;
   --signal-green-fg: #ffffff;
   --signal-green-ink: #11704a;
   --signal-red: #c2410c;
