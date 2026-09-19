@@ -85,7 +85,7 @@ Shared rules:
 
 ## Implementation
 
-- `components/explainers/`: one client component per explainer (SVG, React state, CSS transitions, no animation library). Each explainer's state logic is a pure reducer in its own module, separate from rendering.
+- `components/explainers/`: one client component per explainer (HTML and CSS diagram, React state, CSS transitions, no animation library). Each explainer's state logic is a pure reducer in its own module, separate from rendering.
 - The reducer modules import nothing (no `@/` alias, no React), and use only erasable TypeScript (no enums, namespaces or parameter properties), so Node can run them directly with type stripping. The test file imports them with explicit `.ts` extensions; `tsconfig.json` gets `"allowImportingTsExtensions": true` (valid because it already has `noEmit`).
 - Everything else stays a server component.
 - Delete `app/projects/`, `components/{project-detail,work,how-i-work,flow}.tsx`, `lib/projects.ts`.
